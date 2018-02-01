@@ -1,0 +1,73 @@
+/*home page*/
+h1 {
+	padding: 10px;
+}
+
+#info {
+	border-style: solid;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px;
+}
+
+#foodScroll {
+	border-style: solid;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px;
+}
+
+footer {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+}
+
+/*search page*/
+
+#recipeResults {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+}
+
+#resultsPic {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+}
+
+#changedMind {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+}
+
+header {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+}
+
+#resultsHeader {
+	text-align: center;
+}
+
+/*review page*/
+
+#reviews {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+}
+#newReview {
+	border-style: solid;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+}

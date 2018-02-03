@@ -12,4 +12,11 @@ $(function () {
     firebase.initializeApp(config);
     var database = firebase.database();
 
+    function getFoodData() {
+        var dish = "chicken"
+        var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete" + dish;
+
+        $.ajax
+    }
+
 });

@@ -40,23 +40,23 @@ $(function() {
                 var uid = user.uid;
                 var phoneNumber = user.phoneNumber;
                 var providerData = user.providerData;
-                user.getIdToken().then(function(accessToken) {
+                user.getIdToken().then(function (accessToken) {
                     document.getElementById('sign-in-status').textContent = 'Signed in';
                     document.getElementById('sign-in').textContent = 'Sign out';
                     document.getElementById('account-details').textContent = JSON.stringify({
-                        displayName: displayName,
-                        email: email,
+                        displayName  : displayName,
+                        email        : email,
                         emailVerified: emailVerified,
-                        phoneNumber: phoneNumber,
-                        photoURL: photoURL,
-                        uid: uid,
-                        accessToken: accessToken,
-                        providerData: providerData
+                        phoneNumber  : phoneNumber,
+                        photoURL     : photoURL,
+                        uid          : uid,
+                        accessToken  : accessToken,
+                        providerData : providerData
                     }, null, '  ');
                 });
 
                 $("#username").text(displayName);
-                $("#sign-in").click(function() {
+                $("#sign-in").click(function () {
                     firebase.auth().signOut();
                     window.location = "login.html";
                 });
@@ -65,7 +65,7 @@ $(function() {
                 document.getElementById('sign-in-status').textContent = 'Signed out';
                 document.getElementById('sign-in').textContent = 'Sign in';
                 document.getElementById('account-details').textContent = 'null';
-                $("#sign-in").click(function() {
+                $("#sign-in").click(function () {
                     window.location = "login.html";
                 });
             }

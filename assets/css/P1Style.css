@@ -3,55 +3,52 @@ h1 {
 	padding: 10px;
 }
 
+header {
+	position: fixed;
+	background-color: white;
+	margin-top: 0;
+}
+
+#mainContainer {
+	margin-top: 300px;
+}
+
+#otherContainer {
+	margin-top: 300px;
+}
+
 #info {
-	border-style: solid;
-	border-radius: 10px;
 	padding: 10px;
 	margin: 10px;
 }
 
 #foodScroll {
-	border-style: solid;
-	border-radius: 10px;
 	padding: 10px;
 	margin: 10px;
 }
 
 footer {
-	border-style: solid;
-	border-radius: 10px;
 	margin: 10px;
 }
 
 /*search page*/
 
 #recipeResults {
-	border-style: solid;
-	border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
 }
 
 #resultsPic {
-	border-style: solid;
-	border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
 }
 
 #changedMind {
-	border-style: solid;
-	border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
+
 }
 
-header {
-	border-style: solid;
-	border-radius: 10px;
-	margin: 10px;
-	padding: 10px;
-}
 
 #resultsHeader {
 	text-align: center;
@@ -60,14 +57,10 @@ header {
 /*review page*/
 
 #reviews {
-	border-style: solid;
-	border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
 }
 #newReview {
-	border-style: solid;
-	border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
 }

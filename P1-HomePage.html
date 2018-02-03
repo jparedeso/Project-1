@@ -18,6 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
 
@@ -32,7 +33,7 @@
 
 <body>
 
-<header>
+<header class="fixed-top">
     <div class="page-header">
         <h1>Cook-or-Naught
             <small>The App For Kitchen Adulting... Or Naught.</small>
@@ -40,11 +41,12 @@
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar">
-                    <button type="button" class="navbar" aria-expanded="false">Home</button>
-                    <button type="button" class="navbar" aria-expanded="false">Favorites</button>
-                    <button type="button" class="navbar" aria-expanded="false">I'm Feeling Lucky</button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Home</a></button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
                     <!--this will privide a random recipe from API-->
-                    <button type="button" class="navbar" aria-expanded="false">Reviews</button>
+                   
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
@@ -57,7 +59,7 @@
     </div>
 </header>
 
-<div class="container">
+<div id="mainContainer" class="container">
     <div class="row">
         <div id="info" class="col-md-8">Description of app will go here.
             <br>

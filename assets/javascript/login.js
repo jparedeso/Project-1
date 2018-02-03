@@ -13,7 +13,7 @@ $(function() {
 
         // FirebaseUI config.
         var uiConfig = {
-            signInSuccessUrl: 'P1-HomePage.html',
+            signInSuccessUrl: 'login.html',
             signInOptions: [
                 {
                     provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID
@@ -58,7 +58,7 @@ $(function() {
                 $("#username").text(displayName);
                 $("#sign-in").click(function() {
                     firebase.auth().signOut();
-                    window.location = "index.html";
+                    window.location = "login.html";
                 });
             } else {
                 // User is signed out.
@@ -66,7 +66,7 @@ $(function() {
                 document.getElementById('sign-in').textContent = 'Sign in';
                 document.getElementById('account-details').textContent = 'null';
                 $("#sign-in").click(function() {
-                    window.location = "P1-HomePage.html";
+                    window.location = "login.html";
                 });
             }
         }, function(error) {

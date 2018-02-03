@@ -15,6 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
 
   <!-- JavaScript -->
@@ -25,16 +26,17 @@
 
 <body>
 	<!--this page gets generated on the click of the 'review' button-->
-  <header>
+  <header class="fixed-top">
     <div class="page-header">
       <h1>Here's what we people are saying about us... <small>What do you think?</small></h1>
       <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar">
-          <button type="button" class="navbar" aria-expanded="false">Home</button>
-          <button type="button" class="navbar" aria-expanded="false">Favorites</button>
-          <button type="button" class="navbar" aria-expanded="false">I'm Feeling Lucky</button> <!--this will privide a random recipe from API-->
-          <form class="navbar-form navbar-right">
+          <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Home</a></button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
+                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button> <!--this will privide a random recipe from API-->
+            <form class="navbar-form navbar-right">
             <div class="form-group">
             <input type="text" class="form-control" placeholder="Search">
             <button type="submit" class="btn btn-default">Go</button><!--this will open up a new page from map API-->
@@ -48,12 +50,12 @@
 
   <div class="container">
     <div class="row"> 
-      <div id="reviews" class="col-md-6">
+      <div id="mainContainer" class="col-md-6">
         <p>"This app is great! I have family and friends in from out of town a lot and this app is great whether we want a quiet night in or a fun night out!" --Dan S.</p>
         <p>"My roomate and I use this app all the time. It's great, it give us all the ingredients and instrucions. If we decide it's too hard to make we just find a place nearby that serves it and we're off! --Emily G.</p>
         <p>"Our family uses this app a lot! It's great for a group family activity, we usually stay in and cook the recipes, but we save the list of restaurants near by each time so on the nights we are all busy we can pick a place and all meet up! --Susan R.</p>
         </div>
-      <div id="newReview" class="col-md-5">
+      <div id="otherContainer" class="col-md-5">
         <p>"Enjoying the app? Let us know, leave your own review here!</p>
         <form>
           <div class="form-group">

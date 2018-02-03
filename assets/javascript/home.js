@@ -1,22 +1,25 @@
 $(function () {
 
-    // Initialize Firebase
-    var config = {
-        apiKey           : "AIzaSyCnJS1L0TamagTgoxxJ2TRTWxAwfIUK4Hg",
-        authDomain       : "project1-a695b.firebaseapp.com",
-        databaseURL      : "https://project1-a695b.firebaseio.com",
-        projectId        : "project1-a695b",
-        storageBucket    : "project1-a695b.appspot.com",
-        messagingSenderId: "1059137466888"
-    };
-    firebase.initializeApp(config);
-    var database = firebase.database();
+    function getFoodData(dish) {
+        var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete";
 
-    function getFoodData() {
-        var dish = "chicken"
-        var queryURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete" + dish;
-
-        $.ajax
+        $.ajax({
+            url: queryURL,
+            method: "GET",
+            headers: {
+                "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
+            },
+            data: {
+                query: dish
+            },
+            success: function(res, status) {
+                console.log(res);
+                console.log(status);
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
     }
-
+    getFoodData("chicken");
 });

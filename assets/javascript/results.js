@@ -27,7 +27,7 @@ var Results = function() {
                 query: dish
             },
             success: function(res, status) {
-                // todo: show
+                // todo: show search parameters.
                 _data = res;
                 renderList();
             },
@@ -82,7 +82,7 @@ var Results = function() {
     //endregion
 
     return {
-        init: init
+        init: init,
     };
 }();
 

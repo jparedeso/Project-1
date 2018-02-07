@@ -8,6 +8,8 @@
     <title>Home Page</title>
 
     <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -15,7 +17,7 @@
             crossorigin="anonymous"></script>
 
     <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
@@ -26,8 +28,8 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script type="text/javascript" src="assets/javascript/home.js"></script>
-    <script type="text/javascript" src="assets/javascript/login.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <!--<script type="text/javascript" src="assets/javascript/login.js"></script>-->
+    <!--<script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>-->
 
 </head>
 
@@ -49,8 +51,8 @@
                    
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Recipe Search">
-                            <button type="submit" class="btn btn-default">Go</button><!--this will open up a new page-->
+                            <input type="text" class="form-control" placeholder="Recipe Search" id="mySearch">
+                            <button type="submit" class="btn btn-default" id="searchButton">Go</button><!--this will open up a new page-->
                         </div>
                     </form>
                 </div>
@@ -76,7 +78,7 @@
         <div id="foodScroll" class="col-md-3" data-spy="scroll" data-target="#myScrollspy" data-offset="20">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div id="myScrollspy" class="col-md-4">
                         <div id="section1">
                             <h3>Scrolling Food 1</h3>
                             <p>Pic or link to food can go here.</p>
@@ -91,6 +93,10 @@
                         </div>
                         <div id="section4">
                             <h3>Scrolling Food 4</h3>
+                            <p>Pic or link to food can go here.</p>
+                        </div>
+                        <div id="section5">
+                            <h3>Scrolling Food 5</h3>
                             <p>Pic or link to food can go here.</p>
                         </div>
                     </div>
@@ -112,8 +118,6 @@
 
 </body>
 </html>
-
-
 
 
 

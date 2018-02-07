@@ -11,20 +11,20 @@ header {
 
 #mainContainer {
 	margin-top: 300px;
+	font-size: 15px;
 }
 
-#otherContainer {
-	margin-top: 300px;
-}
 
 #info {
 	padding: 10px;
 	margin: 10px;
+	font-size: 15px;
 }
 
 #foodScroll {
 	padding: 10px;
 	margin: 10px;
+	font-size: 15px;
 }
 
 footer {
@@ -36,17 +36,16 @@ footer {
 #recipeResults {
 	margin: 10px;
 	padding: 10px;
-}
-
-#resultsPic {
-	margin: 10px;
-	padding: 10px;
+	font-size: 15px;
 }
 
 #changedMind {
 	margin: 10px;
 	padding: 10px;
-
+	font-size: 15px;
+}
+.btn {
+	font-size: 12px;
 }
 
 
@@ -59,8 +58,16 @@ footer {
 #reviews {
 	margin: 10px;
 	padding: 10px;
+	font-size: 15px;
 }
 #newReview {
 	margin: 10px;
 	padding: 10px;
+	font-size: 15px;
+}
+
+#foodScroll {
+	height: 300px;
+	width: 300px;
+	overflow: auto;
 }

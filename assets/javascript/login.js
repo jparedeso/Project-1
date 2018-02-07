@@ -10,7 +10,7 @@ $(function() {
             messagingSenderId: "1059137466888"
         };
         firebase.initializeApp(config);
-
+        var database = firebase.database();
         // FirebaseUI config.
         var uiConfig = {
             signInSuccessUrl: 'login.html',
@@ -24,7 +24,6 @@ $(function() {
                 }
             ]
         };
-
         // Initialize the FirebaseUI Widget using Firebase.
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
@@ -32,7 +31,9 @@ $(function() {
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
+
                 // User is signed in.
+                database.ref('users/' + user.uid).update({"test": "test222"})
                 var displayName = user.displayName;
                 var email = user.email;
                 var emailVerified = user.emailVerified;

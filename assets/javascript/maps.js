@@ -1,4 +1,5 @@
-var startPoint = "524 S E St., Lake Worth, FL";           // Starting point location
+var startPoint = $("input").val();           // Starting point location
+console.log(startPoint);
 var endPoint = "5756 Spring Gate Ct, Concord, NC 28027";  // Ending point location
 var map;                                                  // Global variable for map
 function initMap() {                                        // Center Map at these coordinates

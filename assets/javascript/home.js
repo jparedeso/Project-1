@@ -1,7 +1,7 @@
 var Home = function() {
 
     function init() {
-
+        initEventHandlers();
     }
 
     function initEventHandlers() {

@@ -3,7 +3,7 @@ var Results = function() {
     var _data;
 
     function init() {
-        initEventListeners();
+        initEventHandlers();
         _searchResult = getParameterByName("searchResult");
 
         getFoodData(_searchResult);

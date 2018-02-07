@@ -64,8 +64,8 @@ var Results = function() {
             var dishButton = $("<button>")
             .addClass("btn dishLinks")
             .attr("data-dishID", _data[i].id)
-            .text("Go to Recipe.");
-            $("#result" + (i + 1)).append(_data[i].title). append(dishButton);
+            .text(_data[i].title);
+            $("#result" + (i + 1)). append(dishButton);
         }
     }
 

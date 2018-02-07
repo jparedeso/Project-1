@@ -12,9 +12,9 @@ function dineOut() {
     var lng;                            // longitudew variable
     var yourAddress;                    // Holds the human address
 
-    // setTimeout(function () { $("#goOutToDinner").hide() }, 0);
+    setTimeout(function () { $("#goOutToDinner").hide() }, 0);
 
-    // setTimeout(function () { $("#goOutToDinner").show() }, 1000);
+    $("#goOut-btn").on('click', function () { parameters(); $("#goOutToDinner").show() });
 
     function parameters() {
       ipLocationRequest();
@@ -133,7 +133,7 @@ function dineOut() {
         infoWindow.open(map);
       }
     }
-    parameters();
+    // parameters();
   });
 }
 // setTimeout(function () { dineOut() },500);

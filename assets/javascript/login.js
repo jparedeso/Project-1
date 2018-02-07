@@ -34,37 +34,12 @@ $(function() {
 
                 // User is signed in.
                 database.ref("/Users").once("value", function(snapshot) {
-                    var svUsers = snapshot.val();
-                    var userKeys = svUsers ? Object.keys(svUsers) : null;
+                    var fbUsers = snapshot.val();
+                    var userKeys = fbUsers ? Object.keys(fbUsers) : null;
 
                     if (!userKeys || userKeys.indexOf(user.uid) === -1) {
                         database.ref("/Users").child(user.uid).set({
-                            Customers: {
-                                test: {
-                                    name: "test"
-                                }
-                            },
-                            Info: {
-                                email: user.email
-                            },
-                            Listings: {
-                                aaa: {
-                                    name: "aaa"
-                                }
-                            },
-                            Products: {
-                                bbb: {
-                                    name: "bbb",
-                                    listingIds: {
-                                        0: 444
-                                    }
-                                }
-                            },
-                            Sales: {
-                                prueba: {
-                                    name: "prueba"
-                                }
-                            }
+                            //This is where user's favorite dishes will go to be stored in database.
                         });
                     }
                 });

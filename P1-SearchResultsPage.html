@@ -3,40 +3,45 @@
 
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial scale=1.0">
-  <title>Results Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <title>Results Page</title>
 
-  <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
-  <!-- jQuery -->
-  
+    <!-- jQuery -->
 
-  <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
-  <!-- Maps.css stylesheet link -->
-  <link rel="stylesheet" type="text/css" href="assets/css/maps.css">
 
-  <!-- JavaScript -->
-  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-  <!-- Maps.js javascript link -->
-  <script type="text/javascript" src="assets/javascript/maps.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
+    <!-- Maps.css stylesheet link -->
+    <link rel="stylesheet" type="text/css" href="assets/css/maps.css">
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 
     <!-- Google Maps API scorce -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQgQJwE8at_lHwPtmbHL0dxNlfeoyiY3Q&callback=initMap"></script>
     <!-- API script source -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQgQJwE8at_lHwPtmbHL0dxNlfeoyiY3Q&callback=initMap"></script>
+
+    <script type="text/javascript" src="assets/javascript/maps.js"></script>
+    <script type="text/javascript" src="assets/javascript/home.js"></script>
+    <script type="text/javascript" src="assets/javascript/results.js"></script>
 
 </head>
 
 <body>
-	<!-- this page is generated from clicking the "go" button on home page.-->
-  <header class="fixed-top">
+<!-- this page is generated from clicking the "go" button on home page.-->
+<header class="fixed-top">
     <div class="page-header">
         <h1>Cook-or-Naught
             <small>The App For Kitchen Adulting... Or Naught.</small>
@@ -44,12 +49,15 @@
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar">
-                  <a class="btn primary"  href="P1-HomePage.html" role = "button" aria-expanded="false" >Home</a></button>
-                  <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
-                  <a class="btn primary"  href="P1-RandomPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
-                  <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
+                    <a class="btn primary" href="P1-HomePage.html" role="button" aria-expanded="false">Home</a>
+                    <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                       aria-expanded="false">Favorites</a>
+                    <a class="btn primary" href="P1-RandomPage.html" role="button" aria-expanded="false">I'm Feeling
+                        Lucky</a>
+                    <a class="btn primary" href="P1-ReviewPage.html" role="button"
+                       aria-expanded="false">Reviews</a>
                     <!--this will privide a random recipe from API-->
-                   
+
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Recipe Search">
@@ -62,65 +70,78 @@
     </div>
 </header>
 
-  <div id="mainContainer" class="container">
+<div id="mainContainer" class="container">
     <div class="row">
-      <div class="col-md-6">
-        <div id="result1">API will populate here with results based on search input/clicking "go" button.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
-        <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button> 
+        <div class="col-md-6">
+            <div id="result1">API will populate here with results based on search input/clicking "go" button.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus
+                diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                   aria-expanded="false">Favorites</a>
+            </div>
+            <br>
+            <div id="result2">API will populate here with results based on search input/clicking "go" button.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus
+                diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                   aria-expanded="false">Favorites</a>
+            </div>
+            <br>
+            <div id="result3">API will populate here with results based on search input/clicking "go" button.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus
+                diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                   aria-expanded="false">Favorites</a>
+            </div>
+            <br>
+            <div id="result4">API will populate here with results based on search input/clicking "go" button.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus
+                diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce
+                nec tellus sed augue semper porta. Mauris massa.
+                <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                   aria-expanded="false">Favorites</a>
+            </div>
+            <br>
+            <div id="result5">API will populate here with results based on search input/clicking "go" button.Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus
+                diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
+                <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                   aria-expanded="false">Favorites</a>
+            </div>
+            <br>
+            <div id="changedMind">Change your mind? Don't feel like adulting after all? Just want to say screw it and go
+                out? We've got you covered. Click 'Go Out' to find a restaurant and keep your kitchen clean!
+                <button id="goOut-btn" type="submit" class="btn btn-default">Go Out!</button>
+            </div>
         </div>
-        <br>
-        <div id="result2">API will populate here with results based on search input/clicking "go" button.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-        <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button> 
+        <div id="selectionDisplay" class="col-md-6">The recipe the use picked from the lefthand column will appear here
+            when they click on it.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
+            libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
         </div>
-        <br>
-        <div id="result3">API will populate here with results based on search input/clicking "go" button.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. 
-        <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
-        </div>
-        <br>            
-        <div id="result4">API will populate here with results based on search input/clicking "go" button.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
-        <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button> 
-        </div>
-        <br>
-        <div id="result5">API will populate here with results based on search input/clicking "go" button.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. 
-        <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
-        </div>
-        <br>
-        <div id="changedMind">Change your mind? Don't feel like adulting after all? Just want to say screw it and go out? We've got you covered. Click 'Go Out' to find a restaurant and keep your kitchen clean!
-        <button id="goOut-btn" type="submit" class="btn btn-default">Go Out!</button>
-        </div>
-      </div>
-      <div id="selectionDisplay" class="col-md-6">The recipe the use picked from the lefthand column will appear here when they click on it.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. 
     </div>
-  </div>
-<<<<<<< HEAD
-  <br>
-  <footer>
-=======
+</div>
 
-  <!-- Map insertion html -->
-  <div id="map-results">
-      <div id="map"></div>
-      <!-- Container for the map -->
-      <div id="right-panel">
+<!-- Map insertion html -->
+<div id="map-results">
+    <div id="map"></div>
+    <!-- Container for the map -->
+    <div id="right-panel">
         <!-- Container for the directions -->
         <p>Total Distance:
-          <span id="total"></span>
+            <span id="total"></span>
         </p>
-      </div>
     </div>
+</div>
 
-	 <footer>
->>>>>>> e9a83cb0e6e63abf8944b83901ae0ec264587064
+<footer>
     <div class="container">
-      <div class="row">
-        <div class="col-md-9"></div> 
-        <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>    
+        <div class="row">
+            <div class="col-md-9">
+                <button id="back-btn" type="back/prev-page" class="btn btn-default">Back</button>
+            </div>
+            <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>
         </div>
     </div>
-  </footer>
-
+</footer>
 </body>
 </html>
-
-
-

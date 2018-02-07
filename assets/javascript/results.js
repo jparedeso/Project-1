@@ -1,16 +1,20 @@
-$(function () {
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+var Results = function() {
+    var _searchResult;
+    var _data;
+
+    function init() {
+        initEventListeners();
+        _searchResult = getParameterByName("searchResult");
+
+        getFoodData(_searchResult);
     }
-    var searchResult;
+
+    function initEventHandlers() {
+
+    }
+
+    //region API
     function getFoodData(dish) {
-        searchResult = getParameterByName("searchResult");
         var dishNameSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete";
 
         $.ajax({
@@ -23,13 +27,9 @@ $(function () {
                 query: dish
             },
             success: function(res, status) {
-                for (var i = 0; i < res.length; i++) {
-                    dishButton = $("<button>");
-                    dishButton.addClass("btn dishLinks");
-                    dishButton.attr("data-dishID", res[i].id);
-                    dishButton.text("Go to Recipe.");
-                    $("#result" + (i + 1)).append(res[i].title). append(dishButton);
-                }
+                // todo: show
+                _data = res;
+                renderList();
             },
             error: function(error) {
                 console.error(error);
@@ -37,7 +37,7 @@ $(function () {
         });
     }
 
-    function searchDishInstructions (dishName) {
+    function searchDishInstructions() {
 
         var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + dishID + "/information"
         $.ajax({
@@ -57,5 +57,35 @@ $(function () {
             }
         });
     }
-    getFoodData(searchResult);
+    //endregion
+
+    function renderList() {
+        for (var i = 0; i < _data.length; i++) {
+            var dishButton = $("<button>")
+            .addClass("btn dishLinks")
+            .attr("data-dishID", _data[i].id)
+            .text("Go to Recipe.");
+            $("#result" + (i + 1)).append(_data[i].title). append(dishButton);
+        }
+    }
+
+    //region Helpers
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    //endregion
+
+    return {
+        init: init
+    };
+}();
+
+$(function () {
+    Results.init();
 });

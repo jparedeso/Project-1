@@ -33,7 +33,41 @@ $(function() {
             if (user) {
 
                 // User is signed in.
-                database.ref('users/' + user.uid).update({"test": "test222"})
+                database.ref("/Users").once("value", function(snapshot) {
+                    var svUsers = snapshot.val();
+                    var userKeys = svUsers ? Object.keys(svUsers) : null;
+
+                    if (!userKeys || userKeys.indexOf(user.uid) === -1) {
+                        database.ref("/Users").child(user.uid).set({
+                            Customers: {
+                                test: {
+                                    name: "test"
+                                }
+                            },
+                            Info: {
+                                email: user.email
+                            },
+                            Listings: {
+                                aaa: {
+                                    name: "aaa"
+                                }
+                            },
+                            Products: {
+                                bbb: {
+                                    name: "bbb",
+                                    listingIds: {
+                                        0: 444
+                                    }
+                                }
+                            },
+                            Sales: {
+                                prueba: {
+                                    name: "prueba"
+                                }
+                            }
+                        });
+                    }
+                });
                 var displayName = user.displayName;
                 var email = user.email;
                 var emailVerified = user.emailVerified;

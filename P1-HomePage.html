@@ -48,7 +48,7 @@
                     <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
                     <a class="btn primary"  href="P1-RandomPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
                     <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
-                    <!--this will privide a random recipe from API-->
+                    <button type="button" class="btn primary" data-toggle="modal" data-target="#myModal">Log-In</button>
                    
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
@@ -64,48 +64,39 @@
 
 <div id="mainContainer" class="container">
     <div class="row">
-        <div id="info" class="col-md-8">Description of app will go here.
+        <div id="info" class="col-md-6">Description of app will go here.
             <br>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
             dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.
             Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent
             taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in
-            libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at
-            dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi
-            lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet.
-            Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat
-            condimentum velit.
+            libero.
         </div>
-        <div id="foodScroll" class="col-md-3" data-spy="scroll" data-target="#myScrollspy" data-offset="20">
-            <div class="container">
-                <div class="row">
-                    <div id="myScrollspy" class="col-md-4">
-                        <!--<div id="section1">-->
-                            <!--<h3>Scrolling Food 1</h3>-->
-                            <!--<p>Pic or link to food can go here.</p>-->
-                        <!--</div>-->
-                        <!--<div id="section2">-->
-                            <!--<h3>Scrolling Food 2</h3>-->
-                            <!--<p>Pic or link to food can go here.</p>-->
-                        <!--</div>-->
-                        <!--<div id="section3">-->
-                            <!--<h3>Scrolling Food 3</h3>-->
-                            <!--<p>Pic or link to food can go here.</p>-->
-                        <!--</div>-->
-                        <!--<div id="section4">-->
-                            <!--<h3>Scrolling Food 4</h3>-->
-                            <!--<p>Pic or link to food can go here.</p>-->
-                        <!--</div>-->
-                        <!--<div id="section5">-->
-                            <!--<h3>Scrolling Food 5</h3>-->
-                            <!--<p>Pic or link to food can go here.</p>-->
-                        <!--</div>-->
-                    </div>
-                </div>
-            </div>
+        <div id="myScrollspy" class="col-md-5">
+            <!--object-fit: contain is the css for all img tags.-->
+            <img src="assets/pizza.jpg">         
         </div>
     </div>
 </div>
+
+<!--code for modal pop-up starts here-->
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p id="logIn"></p>
+        </div>
+        <div class="modal-footer">
+          <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>
+        </div>
+      </div>
+     </div>
+  </div>
 <br>
 <footer>
     <div class="container">

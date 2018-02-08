@@ -36,7 +36,8 @@
           <a class="btn primary"  href="P1-HomePage.html" role = "button" aria-expanded="false" >Home</a></button>
           <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
           <a class="btn primary"  href="P1-RandomPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
-          <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button><!--this will privide a random recipe from API-->
+          <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
+          <button type="button" class="btn primary" data-toggle="modal" data-target="#myModal">Log-In</button>
             <form class="navbar-form navbar-right">
             <div class="form-group">
             <input type="text" class="form-control" placeholder="Recipe Search">
@@ -68,6 +69,25 @@
       </div>
     </div>
   </div> 
+
+<!--code for modal pop-up starts here-->
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p id="logIn"></p>
+        </div>
+        <div class="modal-footer">
+          <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>
+        </div>
+      </div>
+     </div>
+  </div>
 
 	<footer>
     <div class="container">

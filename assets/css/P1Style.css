@@ -1,4 +1,4 @@
-/*home page*/
+/*all pages*/
 h1 {
 	padding: 10px;
 }
@@ -14,6 +14,23 @@ header {
 	font-size: 15px;
 }
 
+footer {
+	margin: 10px;
+}
+
+/*home page*/
+
+
+#foodScroll {
+	padding: 200px;
+	margin: 200px;
+	font-size: 15px;
+}
+
+#otherContainer {
+	margin-top: 300px;
+	font-size: 15px;
+}
 
 #info {
 	padding: 10px;
@@ -21,15 +38,9 @@ header {
 	font-size: 15px;
 }
 
-#foodScroll {
-	padding: 10px;
-	margin: 10px;
-	font-size: 15px;
-}
 
-footer {
-	margin: 10px;
-}
+
+
 
 /*search page*/
 
@@ -39,6 +50,7 @@ footer {
 	font-size: 15px;
 }
 
+/*search page*/
 #changedMind {
 	margin: 10px;
 	padding: 10px;
@@ -48,10 +60,10 @@ footer {
 	font-size: 12px;
 }
 
-
-#resultsHeader {
-	text-align: center;
+img {
+	object-fit: contain;
 }
+
 
 /*review page*/
 
@@ -60,14 +72,5 @@ footer {
 	padding: 10px;
 	font-size: 15px;
 }
-#newReview {
-	margin: 10px;
-	padding: 10px;
-	font-size: 15px;
-}
 
-#foodScroll {
-	height: 300px;
-	width: 300px;
-	overflow: auto;
-}
+

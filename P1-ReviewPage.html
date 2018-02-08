@@ -6,14 +6,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial scale=1.0">
   <title>Review Page</title>
-
-  <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
 
   <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
@@ -22,14 +23,17 @@
   <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  
 </head>
 
 <body>
-	<!--this page gets generated on the click of the 'review' button-->
+  <!--this page gets generated on the click of the 'review' button-->
   <header class="fixed-top">
     <div class="page-header">
-      <h1>Here's what we people are saying about us... <small>What do you think?</small></h1>
+      <h1>Here's what we people are saying about us...
+        <small>What do you think?</small>
+      </h1>
       <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar">
@@ -39,36 +43,41 @@
           <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
           <button type="button" class="btn primary" data-toggle="modal" data-target="#myModal">Log-In</button>
             <form class="navbar-form navbar-right">
-            <div class="form-group">
-            <input type="text" class="form-control" placeholder="Recipe Search">
-            <button type="submit" class="btn btn-default">Go</button><!--this will open up a new page from map API-->
-            </div>          
-          </form>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Recipe Search">
+                <button type="submit" class="btn btn-default">Go</button>
+                <!--this will open up a new page from map API-->
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </nav>
-    </div>    
+      </nav>
+    </div>
   </header>
 
   <div class="container">
-    <div class="row"> 
+    <div class="row">
       <div id="mainContainer" class="col-md-6">
-        <p>"This app is great! I have family and friends in from out of town a lot and this app is great whether we want a quiet night in or a fun night out!" --Dan S.</p>
-        <p>"My roomate and I use this app all the time. It's great, it give us all the ingredients and instrucions. If we decide it's too hard to make we just find a place nearby that serves it and we're off! --Emily G.</p>
-        <p>"Our family uses this app a lot! It's great for a group family activity, we usually stay in and cook the recipes, but we save the list of restaurants near by each time so on the nights we are all busy we can pick a place and all meet up! --Susan R.</p>
-        </div>
+        <p>"This app is great! I have family and friends in from out of town a lot and this app is great whether we want a quiet
+          night in or a fun night out!" --Dan S.</p>
+        <p>"My roomate and I use this app all the time. It's great, it give us all the ingredients and instrucions. If we decide
+          it's too hard to make we just find a place nearby that serves it and we're off! --Emily G.</p>
+        <p>"Our family uses this app a lot! It's great for a group family activity, we usually stay in and cook the recipes,
+          but we save the list of restaurants near by each time so on the nights we are all busy we can pick a place and
+          all meet up! --Susan R.</p>
+      </div>
       <div id="otherContainer" class="col-md-5">
         <p>"Enjoying the app? Let us know, leave your own review here!</p>
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Review">
+            <input type="text" class="form-control" id="reviewsInput" placeholder="Review">
             <br>
-            <button type="submit" class="btn btn-default">Add Review</button>
-          </div>          
+            <button type="submit" class="btn btn-default" id="addReview">Add Review</button>
+          </div>
         </form>
       </div>
     </div>
-  </div> 
+  </div>
 
 <!--code for modal pop-up starts here-->
 
@@ -93,14 +102,49 @@
     <div class="container">
       <div class="row">
         <div class="col-md-9">
-        </div> 
-        <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>    
         </div>
+        <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>
+      </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    
   </footer>
 </body>
+<script>// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDi-uMjUfC7VilkJyEjiC3bLqKWGfdBkzs",
+    authDomain: "reviewspage-e6e30.firebaseapp.com",
+    databaseURL: "https://reviewspage-e6e30.firebaseio.com",
+    projectId: "reviewspage-e6e30",
+    storageBucket: "reviewspage-e6e30.appspot.com",
+    messagingSenderId: "545138867669"
+};
+firebase.initializeApp(config);
+var database = firebase.database();
+
+$("#addReview").on("click", function (event) {
+    event.preventDefault();
+
+    var newestReview = $("#reviewsInput").val().trim();
+
+    var newReview = {
+        review: newestReview,
+    };
+
+    database.ref().push(newReview);
+
+    console.log(newReview.review);
+    $("#reviewsInput").val("");
+});
+
+database.ref().on("child_added", function (childSnapshot, prevChildKey) {
+
+    console.log(childSnapshot.val());
+
+    var newestReview = childSnapshot.val().review;
+
+    console.log(newestReview);
+    $("#mainContainer").append("<p>" + newestReview);
+});
+</script>
 </html>
-
-
-
-

@@ -5,7 +5,6 @@ var Results = function() {
     function init() {
         initEventHandlers();
         _searchResult = getParameterByName("searchResult");
-
         getFoodData(_searchResult);
     }
 
@@ -36,21 +35,38 @@ var Results = function() {
             }
         });
     }
-
     function searchDishInstructions() {
 
-        var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + dishID + "/information"
+        var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + $(this).attr("data-dishID") + "/information"
         $.ajax({
             url: instructionSearchURL,
             method: "GET",
             headers: {
                 "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
             },
+
             success: function(res, status) {
-                // res.title
-                // res.preparationMinutes
-                // res.image
-                // res.instructions
+
+                $("#selectionDisplay").html(`
+                    <div>
+                        <h2>${res.title}</h2>
+                        <img src="${res.image}">
+                        <h3>Ingredients</h3>  
+                        <div id="extendedIngredients"></div>
+                        <h3>Instructions</h3>  
+                        <div id="analyzedInstructions"></div>                      
+                    </div>
+                `);
+                for (var i = 0; i < res.extendedIngredients.length; i++) {
+                    $("#extendedIngredients").append(`
+                        <p>${res.extendedIngredients[i].amount} ${res.extendedIngredients[i].unit} ${res.extendedIngredients[i].name}</p>
+                    `);
+                }
+                for (var j = 0; j < res.analyzedInstructions[0].steps.length; j++) {
+                    $("#analyzedInstructions").append(`
+                        <p>${res.analyzedInstructions[0].steps[j].number}. ${res.analyzedInstructions[0].steps[j].step}</p>
+                    `);
+                }
             },
             error: function(error) {
                 console.error(error);
@@ -67,6 +83,7 @@ var Results = function() {
             .text(_data[i].title);
             $("#result" + (i + 1)). append(dishButton);
         }
+        $(".dishLinks").on("click", searchDishInstructions);
     }
 
     //region Helpers

@@ -5,7 +5,6 @@ var Results = function() {
     function init() {
         initEventHandlers();
         _searchResult = getParameterByName("searchResult");
-
         getFoodData(_searchResult);
     }
 
@@ -36,10 +35,9 @@ var Results = function() {
             }
         });
     }
-
     function searchDishInstructions() {
 
-        var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + dishID + "/information"
+        var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/429998/information"
         $.ajax({
             url: instructionSearchURL,
             method: "GET",
@@ -47,10 +45,8 @@ var Results = function() {
                 "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
             },
             success: function(res, status) {
-                // res.title
-                // res.preparationMinutes
-                // res.image
-                // res.instructions
+                // test
+                $("#selectionDisplay").append(res.title);
             },
             error: function(error) {
                 console.error(error);
@@ -67,6 +63,10 @@ var Results = function() {
             .text(_data[i].title);
             $("#result" + (i + 1)). append(dishButton);
         }
+        $(".dishLinks").on("click", function(event){
+            event.preventDefault();
+            searchDishInstructions();
+        });
     }
 
     //region Helpers

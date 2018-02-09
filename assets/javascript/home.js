@@ -7,11 +7,6 @@ var Home = function() {
     }
 
     function initEventHandlers() {
-        $("#searchButton").on("click", function(event) {
-            event.preventDefault();
-            var searchResult = $("#mySearch").val().trim();
-            window.location.href = "P1-SearchResultsPage.html?searchResult=" + searchResult;
-        });
     }
     function getRandomDishData() {
         var randomDishesURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random";

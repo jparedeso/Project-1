@@ -5,7 +5,13 @@ var Results = function() {
     function init() {
         initEventHandlers();
         _searchResult = getParameterByName("searchResult");
-        getFoodData(_searchResult);
+        var _currentSearchResult = _searchResult;
+        $("#searchButton").on("click", function(event) {
+            event.preventDefault();
+            _currentSearchResult = $("#mySearch").val().trim();
+            getFoodData(_currentSearchResult);
+        });
+        getFoodData(_currentSearchResult);
     }
 
     function initEventHandlers() {
@@ -76,12 +82,17 @@ var Results = function() {
     //endregion
 
     function renderList() {
+        $("#dishDisplay").html("");
         for (var i = 0; i < _data.length; i++) {
-            var dishButton = $("<button>")
-            .addClass("btn dishLinks")
-            .attr("data-dishID", _data[i].id)
-            .text(_data[i].title);
-            $("#result" + (i + 1)). append(dishButton);
+            // var dishButton = $("<button>")
+            // .addClass("btn dishLinks")
+            // .attr("data-dishID", _data[i].id)
+            // .text(_data[i].title);
+            // $("#result" + (i + 1)). append(dishButton);
+
+            $("#dishDisplay").append(`
+                <button class="btn dishLinks" data-dishID="${_data[i].id}">${_data[i].title}</button><br> 
+            `);
         }
         $(".dishLinks").on("click", searchDishInstructions);
     }

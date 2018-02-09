@@ -91,7 +91,7 @@ var Results = function() {
             // $("#result" + (i + 1)). append(dishButton);
 
             $("#dishDisplay").append(`
-                <button class="btn dishLinks" data-dishID="${_data[i].id}">${_data[i].title}</button><br> 
+                <h5 class="btn dishLinks" data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
             `);
         }
         $(".dishLinks").on("click", searchDishInstructions);

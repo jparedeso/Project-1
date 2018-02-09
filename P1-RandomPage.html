@@ -10,9 +10,7 @@
     <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -22,13 +20,17 @@
     <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
     <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-    <script type="text/javascript" src="assets/javascript/common.js"></script>
-    <script type="text/javascript" src="assets/javascript/home.js"></script>
-    <script type="text/javascript" src="assets/javascript/login.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <script type="text/javascript" src="assets/javascript/common.js"></script>
+    <script type="text/javascript" src="assets/javascript/random.js"></script>
 
 </head>
 
@@ -61,18 +63,13 @@
 
 <div id="mainContainer" class="container">
     <div class="row">
-        <div id="randomResult" class="col-md-6">Random Recipe will go here.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-            dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.
-            Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent
-            taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in
-            libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at
-            dolor.
+        <div class="col-md-6">
+            <div id="randomResult"></div>
             <br> 
             <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
         </div>
-        <div id="randomDisplay" class="col-md-6"> 
-            <img id="randomImg" src="assets/pizza.jpg">
+        <div class="col-md-6">
+            <div id="randomDisplay"></div>
         </div>
     </div>
 </div>
@@ -87,7 +84,7 @@
           <h4 class="modal-title">Modal</h4>
         </div>
         <div class="modal-body">
-          <p id="logIn"></p>
+            <div id="firebaseui-auth-container">Testing Login</div>
         </div>
         <div class="modal-footer">
           <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>

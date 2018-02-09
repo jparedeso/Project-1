@@ -2,16 +2,13 @@
 <html lang="en-us">
 
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial scale=1.0">
-  <title>Review Page</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
+  <title>Reviews Page</title>
+
+  <!-- Latest compiled and minified Bootstrap CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -19,13 +16,19 @@
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+
+  <!-- Latest compiled and minified Bootstrap Javascript-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
 
   <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
   <script type="text/javascript" src="assets/javascript/common.js"></script>
-  
 </head>
 
 <body>
@@ -89,7 +92,7 @@
           <h4 class="modal-title">Modal</h4>
         </div>
         <div class="modal-body">
-          <p id="logIn"></p>
+          <div id="firebaseui-auth-container"></div>
         </div>
         <div class="modal-footer">
           <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>
@@ -111,7 +114,7 @@
   </footer>
 </body>
 <script>// Initialize Firebase
-var config = {
+var reviewsConfig = {
     apiKey: "AIzaSyDi-uMjUfC7VilkJyEjiC3bLqKWGfdBkzs",
     authDomain: "reviewspage-e6e30.firebaseapp.com",
     databaseURL: "https://reviewspage-e6e30.firebaseio.com",
@@ -119,8 +122,8 @@ var config = {
     storageBucket: "reviewspage-e6e30.appspot.com",
     messagingSenderId: "545138867669"
 };
-firebase.initializeApp(config);
-var database = firebase.database();
+firebase.initializeApp(reviewsConfig);
+var reviewsDatabase = firebase.database();
 
 $("#addReview").on("click", function (event) {
     event.preventDefault();
@@ -131,13 +134,13 @@ $("#addReview").on("click", function (event) {
         review: newestReview,
     };
 
-    database.ref().push(newReview);
+    reviewsDatabase.ref().push(newReview);
 
     console.log(newReview.review);
     $("#reviewsInput").val("");
 });
 
-database.ref().on("child_added", function (childSnapshot, prevChildKey) {
+reviewsDatabase.ref().on("child_added", function (childSnapshot, prevChildKey) {
 
     console.log(childSnapshot.val());
 

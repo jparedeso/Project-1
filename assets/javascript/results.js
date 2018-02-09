@@ -21,7 +21,7 @@ var Results = function() {
     //region API
     function getFoodData(dish) {
         var dishNameSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete";
-
+        var numberOfDishes = 10;
         $.ajax({
             url: dishNameSearchURL,
             method: "GET",
@@ -29,6 +29,7 @@ var Results = function() {
                 "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
             },
             data: {
+                number: numberOfDishes,
                 query: dish
             },
             success: function(res, status) {
@@ -82,7 +83,9 @@ var Results = function() {
     //endregion
 
     function renderList() {
-        $("#dishDisplay").html("");
+        $("#dishDisplay").html(`
+            <h3>These are your Results. Click on any of them for Recipes:<h3>
+        `);
         for (var i = 0; i < _data.length; i++) {
             // var dishButton = $("<button>")
             // .addClass("btn dishLinks")

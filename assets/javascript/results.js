@@ -5,7 +5,13 @@ var Results = function() {
     function init() {
         initEventHandlers();
         _searchResult = getParameterByName("searchResult");
-        getFoodData(_searchResult);
+        var _currentSearchResult = _searchResult;
+        $("#searchButton").on("click", function(event) {
+            event.preventDefault();
+            _currentSearchResult = $("#mySearch").val().trim();
+            init()
+        });
+        getFoodData(_currentSearchResult);
     }
 
     function initEventHandlers() {

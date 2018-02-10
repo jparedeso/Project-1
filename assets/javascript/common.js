@@ -55,6 +55,8 @@ var Common = function() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 Cookies.set("UserID", user.uid);
+                $("#loginButton").text("Log Out")
+                                .removeAttr("data-toggle", "data-target");
                 // User is signed in.
                 _database.ref("/Users").once("value", function(snapshot) {
                     var fbUsers = snapshot.val();
@@ -68,9 +70,8 @@ var Common = function() {
                     }
                 });
 
-                $("body").append(`
-                    <p id="sign-in">Log Out</p>
-                `);
+                // $("#loginButton").text("Log Out");
+
 
                 var url = Cookies.get("redirectUrl");
                 if (url) {
@@ -100,7 +101,12 @@ var Common = function() {
                 // });
 
 
-                $("#sign-in").click(function () {
+                $("#loginButton").click(function () {
+                    $("#loginButton").text("Log In")
+                                     .attr({
+                                         "data-toggle": "modal",
+                                         "data-target": "#myModal"
+                                    });
                     firebase.auth().signOut();
                     Cookies.remove("UserID");
                     window.location = "P1-HomePage.html";

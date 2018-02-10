@@ -34,7 +34,6 @@ var Common = function() {
     var _data;
 
     function init() {
-        $("#logoutButton").css("display", "none");
         initEventHandlers();
         myUserLogin();
     }
@@ -56,8 +55,8 @@ var Common = function() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 Cookies.set("UserID", user.uid);
-                $("#loginButton").css("display", "none");
-                $("#logoutButton").css("display", "");
+                $("#loginButton").text("Log Out")
+                                .removeAttr("data-toggle", "data-target");
                 // User is signed in.
                 _database.ref("/Users").once("value", function(snapshot) {
                     var fbUsers = snapshot.val();
@@ -102,9 +101,12 @@ var Common = function() {
                 // });
 
 
-                $("#logoutButton").click(function () {
-                    $("#logoutButton").css("display", "none");
-                    $("#loginButton").css("display", "");
+                $("#loginButton").click(function () {
+                    $("#loginButton").text("Log In")
+                                     .attr({
+                                         "data-toggle": "modal",
+                                         "data-target": "#myModal"
+                                    });
                     firebase.auth().signOut();
                     Cookies.remove("UserID");
                     window.location = "P1-HomePage.html";

@@ -37,9 +37,15 @@ footer {
 	margin: 10px;
 	font-size: 15px;
 }
+#randomDescription {
+	padding: 10px;
+	margin: 10px;
+	font-size: 15px;
+}
 
-
-
+.description {
+	margin-bottom: 10px;
+}
 
 
 /*search page*/
@@ -72,5 +78,6 @@ img {
 	padding: 10px;
 	font-size: 15px;
 }
+
 
 

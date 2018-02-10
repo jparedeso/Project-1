@@ -34,6 +34,8 @@ var Random = function() {
     function renderList() {
         $("#randomResult").html(`
             <div>
+                <h1 div id= "randomDescription">Be Inspired With a Random Recipe Below to Put Your Cooking Skills to The Test</h1>
+                <hr>
                 <h2>${_data[0].title}</h2>
                 <h3>Ingredients</h3>  
                 <div id="extendedIngredients"></div>

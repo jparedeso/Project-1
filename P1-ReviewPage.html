@@ -24,6 +24,8 @@
           crossorigin="anonymous"></script>
 
   <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
@@ -45,7 +47,8 @@
           <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
           <a class="btn primary"  href="P1-RandomPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
           <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
-          <button type="button" class="btn primary" data-toggle="modal" data-target="#myModal">Log-In</button>
+          <button type="button" class="btn primary" data-toggle="modal" data-target="#myModal" id="loginButton">Log In</button>
+          <button type="button" class="btn primary" id="logoutButton">Log Out</button>
             <form class="navbar-form navbar-right">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Recipe Search" id="mySearch">

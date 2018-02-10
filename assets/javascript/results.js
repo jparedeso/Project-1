@@ -113,7 +113,7 @@ var Results = function() {
             console.log(userID);
         } else {
             Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
-            console.log("no estas logueado.");
+            console.log("You are not logged in.");
         }
     }
 

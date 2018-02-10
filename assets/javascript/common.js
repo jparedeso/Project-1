@@ -63,6 +63,7 @@ var Common = function() {
                     if (!userKeys || userKeys.indexOf(user.uid) === -1) {
                         _database.ref("/Users").child(user.uid).set({
                             //This is where user's favorite dishes will go to be stored in database.
+                            // user: user.uid
                         });
                     }
                 });

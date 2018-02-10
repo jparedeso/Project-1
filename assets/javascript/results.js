@@ -1,21 +1,22 @@
 var Results = function() {
     var _searchResult;
     var _data;
+    var _dishData;
+    var _db;
 
     function init() {
+        _db = Common.getDatabase();
         initEventHandlers();
         _searchResult = getParameterByName("searchResult");
-        var _currentSearchResult = _searchResult;
-        $("#searchButton").on("click", function(event) {
-            event.preventDefault();
-            _currentSearchResult = $("#mySearch").val().trim();
-            getFoodData(_currentSearchResult);
-        });
-        getFoodData(_currentSearchResult);
+        getFoodData(_searchResult);
     }
 
     function initEventHandlers() {
-
+        $("#searchButton").on("click", function(event) {
+            event.preventDefault();
+            var searchResult = $("#mySearch").val().trim();
+            getFoodData(searchResult);
+        });
     }
 
     //region API
@@ -53,27 +54,8 @@ var Results = function() {
             },
 
             success: function(res, status) {
-
-                $("#selectionDisplay").html(`
-                    <div>
-                        <h2>${res.title}</h2>
-                        <img src="${res.image}">
-                        <h3>Ingredients</h3>  
-                        <div id="extendedIngredients"></div>
-                        <h3>Instructions</h3>  
-                        <div id="analyzedInstructions"></div>                      
-                    </div>
-                `);
-                for (var i = 0; i < res.extendedIngredients.length; i++) {
-                    $("#extendedIngredients").append(`
-                        <p>${res.extendedIngredients[i].amount} ${res.extendedIngredients[i].unit} ${res.extendedIngredients[i].name}</p>
-                    `);
-                }
-                for (var j = 0; j < res.analyzedInstructions[0].steps.length; j++) {
-                    $("#analyzedInstructions").append(`
-                        <p>${res.analyzedInstructions[0].steps[j].number}. ${res.analyzedInstructions[0].steps[j].step}</p>
-                    `);
-                }
+                _dishData = res;
+                showDishInstructions();
             },
             error: function(error) {
                 console.error(error);
@@ -87,17 +69,52 @@ var Results = function() {
             <h3>These are your Results. Click on any of them for Recipes:<h3>
         `);
         for (var i = 0; i < _data.length; i++) {
-            // var dishButton = $("<button>")
-            // .addClass("btn dishLinks")
-            // .attr("data-dishID", _data[i].id)
-            // .text(_data[i].title);
-            // $("#result" + (i + 1)). append(dishButton);
-
             $("#dishDisplay").append(`
                 <h5 class="btn dishLinks" data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
             `);
         }
         $(".dishLinks").on("click", searchDishInstructions);
+
+        var selected = getParameterByName("dishid");
+
+        if (selected) {
+            $(`[data-dishid=${selected}]`).click();
+        }
+    }
+
+    function showDishInstructions() {
+        $("#selectionDisplay").html(`
+                    <div>
+                        <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}"><i class="fas fa-heart"></i></button>
+                        <h2>${_dishData.title}</h2>
+                        <img src="${_dishData.image}">
+                        <h3>Ingredients</h3>  
+                        <div id="extendedIngredients"></div>
+                        <h3>Instructions</h3>  
+                        <div id="analyzedInstructions"></div>                      
+                    </div>
+                `);
+        for (var i = 0; i < _dishData.extendedIngredients.length; i++) {
+            $("#extendedIngredients").append(`
+                        <p>${Number.isInteger(_dishData.extendedIngredients[i].amount) ? _dishData.extendedIngredients[i].amount : _dishData.extendedIngredients[i].amount.toFixed(2)} ${_dishData.extendedIngredients[i].unit} ${_dishData.extendedIngredients[i].name}</p>
+                    `);
+        }
+        for (var j = 0; j < _dishData.analyzedInstructions[0].steps.length; j++) {
+            $("#analyzedInstructions").append(`
+                        <p>${_dishData.analyzedInstructions[0].steps[j].number}. ${_dishData.analyzedInstructions[0].steps[j].step}</p>
+                    `);
+        }
+        $("#favDishButton").on("click", addToFavorites);
+    }
+
+    function addToFavorites() {
+        var userID = Cookies.get("UserID");
+        if (userID) {
+            console.log(userID);
+        } else {
+            Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
+            console.log("no estas logueado.");
+        }
     }
 
     //region Helpers

@@ -47,26 +47,32 @@ var Results = function() {
     //endregion
 
     function renderList() {
-        $("#dishDisplay").html(`
-            <h3>These are your Results. Click on any of them for Recipes:<h3>
-        `);
-        for (var i = 0; i < _data.length; i++) {
-            $("#dishDisplay").append(`
-                <h5 class="btn dishLinks btn btn-default",  data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
+        if (_data.length > 0) {
+            $("#dishDisplay").html(`
+                <h3>These are your Results. Click on any of them for Recipes:<h3>
             `);
-        }
-        $(".dishLinks").on("click", function() {
-            var dishId = $(this).attr("data-dishID");
-            Common.searchDishInstructions(dishId, function(res, status) {
-                _dishData = res;
-                showDishInstructions();
+            for (var i = 0; i < _data.length; i++) {
+                $("#dishDisplay").append(`
+                    <h5 class="btn dishLinks btn btn-default",  data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
+                `);
+            }
+            $(".dishLinks").on("click", function () {
+                var dishId = $(this).attr("data-dishID");
+                Common.searchDishInstructions(dishId, function (res, status) {
+                    _dishData = res;
+                    showDishInstructions();
+                });
             });
-        });
+            //storing cookie value in a variable that I can use to return to where the user left off after logging in.
+            var selected = getParameterByName("dishid");
 
-        var selected = getParameterByName("dishid");
-
-        if (selected) {
-            $(`[data-dishid=${selected}]`).click();
+            if (selected) {
+                $(`[data-dishid=${selected}]`).click();
+            }
+        } else {
+            $("#dishDisplay").append(`
+                <h3>There are no Results.</h3>
+            `)
         }
     }
 

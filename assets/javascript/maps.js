@@ -11,7 +11,7 @@ function initMap() {
         var lng;                            // longitudew variable
         var yourAddress;                    // Holds the human address
         var infoWindow;
-        var testdestination;
+        var cuisine = 1;
 
         initEventHandlers();
 
@@ -19,17 +19,26 @@ function initMap() {
             $("#goOut-btn").on('click', ipLocationRequest);
 
             $("#submit").on('click', function () {    // Click to search for directions to the restaurant
-                if (autoLocate) {
+                console.log(cuisine);
+                if (autoLocate && $(".phldr").val() === "") {
                     startPoint = pos;
                     $(".phldr").attr("placeholder", yourAddress);
                     infoWindow.setContent(yourAddress);
                 } else {
                     startPoint = $("#start").val();
                 }
-                endPoint = testdestination;
-                // endPoint = $("#end").val();             // Center Map at these coordinates
-                modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
-                initMap();
+                getRestaurantInfo(function(res, status) {
+                    console.log(res.restaurants);
+                    endPoint = res.restaurants[0].restaurant.location.address;
+
+                    // endPoint = $("#end").val();             // Center Map at these coordinates
+                    modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
+                    initMap();
+                });
+            });
+
+            $("#mode2").on("change", function() {
+                cuisine = $(this).val();
             });
         }
 
@@ -50,8 +59,7 @@ function initMap() {
                 computeTotalDistance(directionsDisplay.getDirections());
             });
 
-            displayRoute(startPoint, endPoint, directionsService,
-                directionsDisplay);
+            displayRoute(startPoint, endPoint, directionsService, directionsDisplay);
         }
 
         function displayRoute(origin, destination, service, display) {
@@ -98,7 +106,11 @@ function initMap() {
                         zoom  : 3,
                         center: {lat: 39.5, lng: -95.35}        // America.
                     });
-                    getRestaurantInfo();
+
+                    getRestaurantInfo(function(res, status) {
+                        console.log(res.restaurants);
+                        endPoint = res.restaurants[0].restaurant.location.address;
+                    });
 
 
                     $("#goOutToDinner").removeClass("hidden");
@@ -125,6 +137,7 @@ function initMap() {
                 }, function () {
                     handleLocationError(true, infoWindow, map.getCenter());
                 });
+
             } else {
                 // Browser doesn't support Geolocation
                 handleLocationError(false, infoWindow, map.getCenter());
@@ -141,10 +154,10 @@ function initMap() {
 
         // parameters();
 
-        function getRestaurantInfo() {
+        function getRestaurantInfo(cb) {
             var restaurantSearchURL = "https://developers.zomato.com/api/v2.1/search";
             var count = 5;
-            var cuisine = 55;
+
             $.ajax({
                 url    : restaurantSearchURL,
                 method : "GET",
@@ -157,10 +170,7 @@ function initMap() {
                     lat     : lat,
                     lon     : lng
                 },
-                success: function (res, status) {
-                    console.log(res.restaurants[0].restaurant.location.address);
-                    testdestination = res.restaurants[0].restaurant.location.address
-                },
+                success: cb,
                 error  : function (error) {
                     console.error(error);
                 }

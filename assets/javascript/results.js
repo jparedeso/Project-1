@@ -78,9 +78,8 @@ var Results = function() {
 
     function showDishInstructions() {
         $("#selectionDisplay").html(`
-                    <div>
-                        <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}"><i class="fas fa-heart"></i></button>
-                        <h2>${_dishData.title}</h2>
+                    <div>                        
+                        <h2><button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}"><i class="fas fa-heart"></i></button>  ${_dishData.title}</h2>
                         <img src="${_dishData.image}">
                         <h3>Ingredients</h3>  
                         <div id="extendedIngredients"></div>
@@ -117,6 +116,7 @@ var Results = function() {
             });
         } else {
             Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
+            $("#myModal").modal("toggle");
             console.log("You are not logged in.");
         }
     }

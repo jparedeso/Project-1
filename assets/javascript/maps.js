@@ -11,6 +11,7 @@ function initMap() {
         var lng;                            // longitudew variable
         var yourAddress;                    // Holds the human address
         var infoWindow;
+        var testdestination;
 
         initEventHandlers();
 
@@ -25,7 +26,8 @@ function initMap() {
                 } else {
                     startPoint = $("#start").val();
                 }
-                endPoint = $("#end").val();             // Center Map at these coordinates
+                endPoint = testdestination;
+                // endPoint = $("#end").val();             // Center Map at these coordinates
                 modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
                 initMap();
             });
@@ -156,7 +158,8 @@ function initMap() {
                     lon     : lng
                 },
                 success: function (res, status) {
-                    console.log(res.restaurants);
+                    console.log(res.restaurants[0].restaurant.location.address);
+                    testdestination = res.restaurants[0].restaurant.location.address
                 },
                 error  : function (error) {
                     console.error(error);

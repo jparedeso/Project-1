@@ -55,8 +55,9 @@ var Common = function() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 Cookies.set("UserID", user.uid);
-                $("#loginButton").text("Log Out")
-                                .removeAttr("data-toggle", "data-target");
+                // $("#loginButton").text("Log Out")
+                //                 .removeAttr("data-toggle", "data-target");
+                $("<button type='button' class='btn primary' id='loginButton'>Log Out</button>").insertBefore(".navbar-form.navbar-right");
                 // User is signed in.
                 _database.ref("/Users").once("value", function(snapshot) {
                     var fbUsers = snapshot.val();
@@ -64,7 +65,7 @@ var Common = function() {
 
                     if (!userKeys || userKeys.indexOf(user.uid) === -1) {
                         _database.ref("/Users").child(user.uid).set({
-                            //This is where user's favorite dishes will go to be stored in database.
+                            //This is where user's favorite dishes will go to be stored in db.
                             // user: user.uid
                         });
                     }
@@ -102,11 +103,12 @@ var Common = function() {
 
 
                 $("#loginButton").click(function () {
-                    $("#loginButton").text("Log In")
-                                     .attr({
-                                         "data-toggle": "modal",
-                                         "data-target": "#myModal"
-                                    });
+                    // $("#loginButton").text("Log In")
+                    //                  .attr({
+                    //                      "data-toggle": "modal",
+                    //                      "data-target": "#myModal"
+                    //                 });
+                    // $("<button type='button' class='btn primary' data-toggle='modal' data-target='#myModal' id='loginButton'>Log In</button>").insertBefore(".navbar-form.navbar-right");
                     firebase.auth().signOut();
                     Cookies.remove("UserID");
                     window.location = "P1-HomePage.html";
@@ -119,6 +121,8 @@ var Common = function() {
             //     $("#sign-in").click(function () {
             //         window.location = "P1-HomePage.html";
             //     });
+            } else {
+                $("<button type='button' class='btn primary' data-toggle='modal' data-target='#myModal' id='loginButton'>Log In</button>").insertBefore(".navbar-form.navbar-right");
             }
         }, function(error) {
             console.log(error);

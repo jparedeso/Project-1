@@ -72,6 +72,9 @@ img {
 	object-fit: contain;
 }
 
+#floating-panel2 {
+	font-size: 15px;
+}
 
 /*review page*/
 
@@ -86,6 +89,7 @@ img {
 
 }
 
+<<<<<<< HEAD
 #floating-panel2 {
 	font-size: 15px;
 	position: relative;
@@ -104,6 +108,59 @@ right: 35px;
 .foodChoice{
 	position: relative;
 	right: 70px;
+=======
+/*Home Page Gallery*/
+
+.galleryContainer .galleryItem {
+	height: auto;
+	position: relative;
+}
+
+.galleryContainer .galleryItem > .galleryImage {
+	position: relative;
+}
+
+.galleryContainer .galleryItem > .galleryImage > .imageOverlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	top: 0;
+	left: 0;
+	opacity: 0;
+	webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+.galleryContainer .galleryItem > .galleryImage > .imageOverlay > .galleryDishTitle {
+	color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+}
+
+.galleryContainer .galleryItem > .galleryImage > .imageOverlay:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
+.galleryContainer .galleryItem {
+	width: 20%;
+}
+
+.galleryContainer .galleryItem.doubleSize {
+	width: 40%;
+}
+
+@media (max-width: 991px) {
+	.galleryContainer .galleryItem {
+		width: 50%;
+	}
+>>>>>>> e60f004e9f06b2905de751f5a794936f02f45197
 }
 
 #mode{

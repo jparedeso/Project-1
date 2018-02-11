@@ -111,6 +111,9 @@ var Results = function() {
         var userID = Cookies.get("UserID");
         if (userID) {
             console.log(userID);
+            _db.ref("/Users").child(userID).set({
+                test: "test"
+            });
         } else {
             Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
             console.log("You are not logged in.");

@@ -31,6 +31,7 @@
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
   <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
   <script type="text/javascript" src="assets/javascript/common.js"></script>
+  <script type="text/javascript" src="assets/javascript/review.js"></script>
 </head>
 
 <body>
@@ -47,7 +48,6 @@
           <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
           <a class="btn primary"  href="P1-RandomPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
           <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
-          <button type="button" class="btn primary" data-toggle="modal" data-target="#myModal" id="loginButton">Log In</button>
             <form class="navbar-form navbar-right">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Recipe Search" id="mySearch">
@@ -111,45 +111,6 @@
         <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>
       </div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-    
   </footer>
 </body>
-<script>// Initialize Firebase
-var reviewsConfig = {
-    apiKey: "AIzaSyDi-uMjUfC7VilkJyEjiC3bLqKWGfdBkzs",
-    authDomain: "reviewspage-e6e30.firebaseapp.com",
-    databaseURL: "https://reviewspage-e6e30.firebaseio.com",
-    projectId: "reviewspage-e6e30",
-    storageBucket: "reviewspage-e6e30.appspot.com",
-    messagingSenderId: "545138867669"
-};
-firebase.initializeApp(reviewsConfig);
-var reviewsDatabase = firebase.database();
-
-$("#addReview").on("click", function (event) {
-    event.preventDefault();
-
-    var newestReview = $("#reviewsInput").val().trim();
-
-    var newReview = {
-        review: newestReview,
-    };
-
-    reviewsDatabase.ref().push(newReview);
-
-    console.log(newReview.review);
-    $("#reviewsInput").val("");
-});
-
-reviewsDatabase.ref().on("child_added", function (childSnapshot, prevChildKey) {
-
-    console.log(childSnapshot.val());
-
-    var newestReview = childSnapshot.val().review;
-
-    console.log(newestReview);
-    $("#mainContainer").append("<p>" + newestReview);
-});
-</script>
 </html>

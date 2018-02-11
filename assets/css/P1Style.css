@@ -56,12 +56,14 @@ footer {
 	font-size: 15px;
 }
 
+
 /*search page*/
 #changedMind {
 	margin: 10px;
 	padding: 10px;
 	font-size: 15px;
 }
+
 .btn {
 	font-size: 12px;
 }
@@ -70,12 +72,21 @@ img {
 	object-fit: contain;
 }
 
+#floating-panel2 {
+	font-size: 15px;
+}
+
 /*review page*/
 
 #reviews {
 	margin: 10px;
 	padding: 10px;
 	font-size: 15px;
+}
+#logo {
+	position: relative;
+	bottom: 8px;
+
 }
 
 /*Home Page Gallery*/
@@ -130,6 +141,4 @@ img {
 		width: 50%;
 	}
 }
-
-
 

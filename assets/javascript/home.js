@@ -152,11 +152,6 @@ var Home = function() {
                 "image": "https://spoonacular.com/recipeImages/587301-556x370.jpg"
             },
             {
-                "id": 478451,
-                "title": "Baby Arugula Pesto",
-                "image": "https://spoonacular.com/recipeImages/478451-556x370.jpeg"
-            },
-            {
                 "id": 207307,
                 "title": "The Un-Pink Lady Cocktail",
                 "image": "https://spoonacular.com/recipeImages/207307-556x370.jpg"

@@ -25,7 +25,7 @@
           crossorigin="anonymous"></script>
 
   <!-- Google Maps API scorce -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQgQJwE8at_lHwPtmbHL0dxNlfeoyiY3Q&callback=dineOut"></script>
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQgQJwE8at_lHwPtmbHL0dxNlfeoyiY3Q&callback=initMap"></script>
 
   <!-- JavaScript -->
   <<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
@@ -124,8 +124,8 @@
   </div>
 
   <!-- Map insertion html -->
-  
-  <div id="goOutToDinner">
+
+  <div id="goOutToDinner" class="hidden">
     <a id="floating-panel2" class="top">
         <b>I Want To Eat: </b>
         <select id="mode2">

@@ -99,10 +99,17 @@ var Results = function() {
                         <p>${Number.isInteger(_dishData.extendedIngredients[i].amount) ? _dishData.extendedIngredients[i].amount : _dishData.extendedIngredients[i].amount.toFixed(2)} ${_dishData.extendedIngredients[i].unit} ${_dishData.extendedIngredients[i].name}</p>
                     `);
         }
-        for (var j = 0; j < _dishData.analyzedInstructions[0].steps.length; j++) {
+        if (_dishData.analyzedInstructions.length > 0) {
+            for (var j = 0; j < _dishData.analyzedInstructions[0].steps.length; j++) {
+                $("#analyzedInstructions").append(`
+                            <p>${_dishData.analyzedInstructions[0].steps[j].number}. ${_dishData.analyzedInstructions[0].steps[j].step}</p>
+                        `);
+            }
+        } else {
             $("#analyzedInstructions").append(`
-                        <p>${_dishData.analyzedInstructions[0].steps[j].number}. ${_dishData.analyzedInstructions[0].steps[j].step}</p>
-                    `);
+                <p>Sorry, we couldn't find any instructions.</p>
+                <p>Try the following link: <a href="${_dishData.sourceUrl}" target="_blank">${_dishData.sourceUrl}</a></p>
+            `)
         }
         $("#favDishButton").on("click", addToFavorites);
     }

@@ -43,25 +43,7 @@ var Results = function() {
             }
         });
     }
-    function searchDishInstructions() {
 
-        var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + $(this).attr("data-dishID") + "/information"
-        $.ajax({
-            url: instructionSearchURL,
-            method: "GET",
-            headers: {
-                "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
-            },
-
-            success: function(res, status) {
-                _dishData = res;
-                showDishInstructions();
-            },
-            error: function(error) {
-                console.error(error);
-            }
-        });
-    }
     //endregion
 
     function renderList() {
@@ -73,7 +55,13 @@ var Results = function() {
                 <h5 class="btn dishLinks btn btn-default",  data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
             `);
         }
-        $(".dishLinks").on("click", searchDishInstructions);
+        $(".dishLinks").on("click", function() {
+            var dishId = $(this).attr("data-dishID");
+            Common.searchDishInstructions(dishId, function(res, status) {
+                _dishData = res;
+                showDishInstructions();
+            });
+        });
 
         var selected = getParameterByName("dishid");
 
@@ -140,7 +128,7 @@ var Results = function() {
     //endregion
 
     return {
-        init: init,
+        init: init
     };
 }();
 

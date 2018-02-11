@@ -128,10 +128,26 @@ var Common = function() {
             console.log(error);
         });
     }
+    function searchDishInstructions(id, cb) {
+        var instructionSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/" + id + "/information";
+        $.ajax({
+            url: instructionSearchURL,
+            method: "GET",
+            headers: {
+                "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
+            },
+
+            success: cb,
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
 
     return {
         init: init,
-        getDatabase: getDatabase
+        getDatabase: getDatabase,
+        searchDishInstructions: searchDishInstructions
     };
 }();
 

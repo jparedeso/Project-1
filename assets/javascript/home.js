@@ -8,7 +8,11 @@ var Home = function() {
 
     function initEventHandlers() {
         $(".galleryImage").on("click", function() {
-            console.log($(this).data("dishid"));
+            var dishId = $(this).data("dishid");
+            console.log(dishId);
+            Common.searchDishInstructions(dishId, function(res, status) {
+                console.log(res);
+            });
         })
     }
     // function getRandomDishData() {

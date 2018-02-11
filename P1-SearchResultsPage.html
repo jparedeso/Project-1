@@ -125,23 +125,24 @@
   <!-- Map insertion html -->
 
   <div id="goOutToDinner" class="hidden">
-    <a id="floating-panel2" class="top">
-        <b>I Want To Eat: </b>
-        <select id="mode2">
-          <option value="CUSINE1"></option>
-          <option value="CUSINE2"></option>
-          <option value="CUSINE3"></option>
-          <option value="CUSINE4"></option>
-          <option value="CUSINE5"></option>
-          <option value="CUSINE6"></option>
-          <option value="CUSINE7"></option>
-          <option value="CUSINE8"></option>
-          <option value="CUSINE9"></option>
-          <option value="CUSINE10"></option>
-        </select>
-    </a>
+
     <div class="container-map" id="map-dir">
       <a class="input-wrapper, top">
+          <a id="floating-panel2" class="foodChoice">
+              <b>I Want To Eat: </b>
+              <select id="mode2">
+                  <option value="CUSINE1"></option>
+                  <option value="CUSINE2"></option>
+                  <option value="CUSINE3"></option>
+                  <option value="CUSINE4"></option>
+                  <option value="CUSINE5"></option>
+                  <option value="CUSINE6"></option>
+                  <option value="CUSINE7"></option>
+                  <option value="CUSINE8"></option>
+                  <option value="CUSINE9"></option>
+                  <option value="CUSINE10"></option>
+              </select>
+          </a>
         <input class="phldr" dir="auto" type="text" placeholder="Your address" name="direction-display" id="start" maxlength="30"
           class="input--text" aria-label="name">
       </a>
@@ -149,7 +150,7 @@
         <input dir="auto" type="text" placeholder="Restaurant's address" name="Restaurant's address" id="end" maxlength="30" class="input--text"
           aria-label="name">
       </a>
-      <a id="floating-panel" class="top">
+      <a id="floating-panel" class="transpChoice">
         <b>Mode of Travel: </b>
         <select id="mode">
           <option value="DRIVING">Driving</option>

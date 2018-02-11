@@ -1,144 +1,165 @@
 /*all pages*/
 h1 {
-	padding: 10px;
+    padding: 10px;
 }
 
 header {
-	position: fixed;
-	background-color: white;
-	margin-top: 0;
+    position: fixed;
+    background-color: white;
+    margin-top: 0;
 }
 
 #mainContainer {
-	margin-top: 300px;
-	font-size: 15px;
+    margin-top: 300px;
+    font-size: 15px;
 }
 
 footer {
-	margin: 10px;
+    margin: 10px;
 }
 
 /*home page*/
 
-
 #foodScroll {
-	padding: 200px;
-	margin: 200px;
-	font-size: 15px;
+    padding: 200px;
+    margin: 200px;
+    font-size: 15px;
 }
 
 #otherContainer {
-	margin-top: 300px;
-	font-size: 15px;
+    margin-top: 300px;
+    font-size: 15px;
 }
 
 #info {
-	padding: 10px;
-	margin: 10px;
-	font-size: 15px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 15px;
 }
+
 #randomDescription {
-	padding: 10px;
-	margin: 10px;
-	font-size: 15px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 15px;
 }
 
 .description {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
-
 
 /*search page*/
 
 #recipeResults {
-	margin: 10px;
-	padding: 10px;
-	font-size: 15px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 15px;
 }
-
 
 /*search page*/
 #changedMind {
-	margin: 10px;
-	padding: 10px;
-	font-size: 15px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 15px;
 }
 
 .btn {
-	font-size: 12px;
+    font-size: 12px;
 }
 
 img {
-	object-fit: contain;
+    object-fit: contain;
 }
 
-#floating-panel2 {
-	font-size: 15px;
+#start {
+    right: 40px;
+    position: relative;
+}
+
+#end {
+    position: relative;
+    right: 35px;
+}
+
+.foodChoice {
+    position: relative;
+    right: 70px;
+}
+
+#mode {
+    position: absolute;
+    left: 29px;
+    top: -1px;
+}
+
+.transpChoice {
+    position: relative;
+    right: 30px;
 }
 
 /*review page*/
 
 #reviews {
-	margin: 10px;
-	padding: 10px;
-	font-size: 15px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 15px;
 }
+
 #logo {
-	position: relative;
-	bottom: 8px;
+    position: relative;
+    bottom: 8px;
 
 }
 
 /*Home Page Gallery*/
 
 .galleryContainer .galleryItem {
-	height: auto;
-	position: relative;
+    height: auto;
+    position: relative;
 }
 
 .galleryContainer .galleryItem > .galleryImage {
-	position: relative;
+    position: relative;
 }
 
 .galleryContainer .galleryItem > .galleryImage > .imageOverlay {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	top: 0;
-	left: 0;
-	opacity: 0;
-	webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-ms-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .galleryContainer .galleryItem > .galleryImage > .imageOverlay > .galleryDishTitle {
-	color: #fff;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 
 .galleryContainer .galleryItem > .galleryImage > .imageOverlay:hover {
-	opacity: 1;
-	cursor: pointer;
+    opacity: 1;
+    cursor: pointer;
 }
 
 .galleryContainer .galleryItem {
-	width: 20%;
+    width: 20%;
 }
 
 .galleryContainer .galleryItem.doubleSize {
-	width: 40%;
+    width: 40%;
 }
 
 @media (max-width: 991px) {
-	.galleryContainer .galleryItem {
-		width: 50%;
-	}
+    .galleryContainer .galleryItem {
+        width: 50%;
+    }
 }
 

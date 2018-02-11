@@ -68,6 +68,21 @@
     padding-left: 10px; */
   }
 
+  #floating-panel2 {
+    /* position: absolute; */
+    /* top: 72px;
+    left: 35%; */
+    z-index: 5;
+    background-color: #fff;
+    /* padding: 5px; */
+    /* border: 1px solid #999; */
+    text-align: center;
+    /* font-family: 'Roboto','sans-serif'; */
+    /* line-height: 10px;
+    padding-left: 10px; */
+    padding: 8px 0 0 0;
+  }
+
   #map-dir {
     padding: 8px 0 0 0;
     margin: auto;

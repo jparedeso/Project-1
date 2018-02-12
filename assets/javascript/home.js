@@ -342,7 +342,9 @@ var Home = function() {
         $(".galleryImage").on("click", function(){
             var dishName = $(this).attr("data-dishname");
             var dishNameUrl = dishName.replace(/ /g, "%20");
-            alert(dishNameUrl)
+            var dishIdUrl = $(this).attr("data-dishid");
+            var newURL = "http://localhost:63342/Project1/P1-SearchResultsPage.html?searchResult=" + dishNameUrl + "&dishid=" + dishIdUrl;
+            window.location = newURL;
         });
         setTimeout(function() {
             $(".galleryContainer").removeClass("hidden");

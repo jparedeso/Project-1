@@ -68,7 +68,9 @@ var Favorites = function() {
     }
 
     function removeFromFavorites() {
-
+        var favoriteDishId = _dishData.id;
+        _db.ref("/Users/" + _currentUser + "/" + favoriteDishId).remove();
+        location.reload();
     }
 
     return {

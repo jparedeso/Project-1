@@ -53,7 +53,7 @@ var Results = function() {
             `);
             for (var i = 0; i < _data.length; i++) {
                 $("#dishDisplay").append(`
-                    <h5 class="btn dishLinks btn btn-default",  data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
+                    <h5 class="btn dishLinks btn btn-default" data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
                 `);
             }
             $(".dishLinks").on("click", function () {

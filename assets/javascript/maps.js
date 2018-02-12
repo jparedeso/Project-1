@@ -14,6 +14,7 @@ function initMap() {
         var cuisine = 1;
         var restaurants;
         var markers = [];
+        var directionsDisplay;
 
         initEventHandlers();
 
@@ -21,23 +22,38 @@ function initMap() {
             $("#goOut-btn").on('click', requestIpLocation);
 
             $("#submit").on('click', function () {    // Click to search for directions to the restaurant
-                console.log(cuisine);
                 if (autoLocate && $(".phldr").val() === "") {
                     startPoint = pos;
                     $(".phldr").attr("placeholder", yourAddress);
                     infoWindow.setContent(yourAddress);
                 } else {
                     startPoint = $("#start").val();
+                    $.ajax({
+                        url   : "http://maps.google.com/maps/api/geocode/json",
+                        data: { address: startPoint },
+                        method: "GET"
+                    }).done(function (res) {
+                        infoWindow.setPosition({
+                            lat: res.results[0].geometry.location.lat,
+                            lng: res.results[0].geometry.location.lng
+                        });
+                        infoWindow.setContent("Starting Location");
+                        if (directionsDisplay != null) {
+                            directionsDisplay.setMap(null);
+                            directionsDisplay = null;
+                        }
+                        configRoute();
+                    });
                 }
-                getRestaurantInfo(function(res, status) {
-                    restaurants = res.restaurants;
-                    console.log(restaurants);
-                    endPoint = restaurants[0].restaurant.location.address;
-
-                    // endPoint = $("#end").val();             // Center Map at these coordinates
-                    modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
-                    configRoute();
-                });
+                // getRestaurantInfo(function(res, status) {
+                //     restaurants = res.restaurants;
+                //     console.log(restaurants);
+                //     endPoint = restaurants[0].restaurant.location.address;
+                //
+                //     // endPoint = $("#end").val();             // Center Map at these coordinates
+                //     modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
+                //     configRoute();
+                // });
             });
 
             $("#mode2").on("change", function() {
@@ -155,8 +171,34 @@ function initMap() {
                 markers.push(marker);
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(`<h3>${restaurants[i].restaurant.name}</h3>`);
+                        infowindow.setContent(`<h3>${restaurants[i].restaurant.name}</h3>
+                                                <p class="restaurantDirections" data-latitude="${restaurants[i].restaurant.location.latitude}" data-longitude="${restaurants[i].restaurant.location.longitude}">Show directions for this location.</p>
+                                              `);
                         infowindow.open(map, marker);
+                        $(".restaurantDirections").on("click", function() {
+                            if (directionsDisplay != null) {
+                                directionsDisplay.setMap(null);
+                                directionsDisplay = null;
+                            }
+                            $("#right-panel").html("");
+                            console.log(cuisine);
+                            if (autoLocate && $(".phldr").val() === "") {
+                                startPoint = pos;
+                                $(".phldr").attr("placeholder", yourAddress);
+                                infoWindow.setContent(yourAddress);
+                            } else {
+                                startPoint = $("#start").val();
+                            }
+                            getRestaurantInfo(function(res, status) {
+                                restaurants = res.restaurants;
+                                console.log(restaurants);
+                                endPoint = restaurants[i].restaurant.location.address;
+
+                                // endPoint = $("#end").val();             // Center Map at these coordinates
+                                modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
+                                configRoute();
+                            });
+                        });
                     }
                 })(marker, i));
             }
@@ -171,7 +213,7 @@ function initMap() {
 
         function configRoute() {
             var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer({
+             directionsDisplay = new google.maps.DirectionsRenderer({
                 draggable: true,
                 map      : map,
                 panel    : document.getElementById('right-panel')

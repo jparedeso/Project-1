@@ -79,6 +79,20 @@ var Common = function() {
                     Cookies.remove("redirectUrl");
                     window.location = url;
                 }
+                var newFbDishName = Cookies.get("randomdishtitle");
+                var newFbDishId = Cookies.get("randomdishid");
+                var currentUserId = Cookies.get("UserID");
+                if (newFbDishId) {
+                    _database.ref("/Users/" + currentUserId).child(newFbDishId).set({
+                        "dishid": newFbDishId,
+                        "dishname": newFbDishName
+                        // "dishingredients": _data[0].extendedIngredients
+                        // "dishinstructions": _data[0].analyzedInstructions
+                    });
+                    Cookies.remove("randomdishtitle");
+                    Cookies.remove("randomdishid");
+                    window.location = "P1-FavoritesPage.html";
+                }
                 // var displayName = user.displayName;
                 // var email = user.email;
                 // var emailVerified = user.emailVerified;

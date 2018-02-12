@@ -18,6 +18,11 @@ footer {
     margin: 15px;
 }
 
+#myModal {
+    margin-top: 50px;
+    background-opacity: .5;
+}
+
 /*home page*/
 
 #foodScroll {

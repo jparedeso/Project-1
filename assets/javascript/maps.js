@@ -156,7 +156,7 @@ function initMap() {
         }
 
         function displayMarkers() {
-            var infowindow = new google.maps.InfoWindow();
+            var infowindow2 = new google.maps.InfoWindow();
 
             var marker;
             var i;
@@ -169,12 +169,19 @@ function initMap() {
                     map     : map
                 });
                 markers.push(marker);
+                var bounds = new google.maps.LatLngBounds();
+                bounds.extend(infoWindow.getPosition());
+                for (var j = 0; j < markers.length; j++) {
+                    bounds.extend(markers[j].getPosition());
+                }
+
+                map.fitBounds(bounds);
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(`<h3>${restaurants[i].restaurant.name}</h3>
+                        infowindow2.setContent(`<h3>${restaurants[i].restaurant.name}</h3>
                                                 <p class="restaurantDirections" data-latitude="${restaurants[i].restaurant.location.latitude}" data-longitude="${restaurants[i].restaurant.location.longitude}">Show directions for this location.</p>
                                               `);
-                        infowindow.open(map, marker);
+                        infowindow2.open(map, marker);
                         $(".restaurantDirections").on("click", function() {
                             if (directionsDisplay != null) {
                                 directionsDisplay.setMap(null);

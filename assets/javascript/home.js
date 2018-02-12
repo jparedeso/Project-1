@@ -344,7 +344,7 @@ var Home = function() {
             var dishNameUrl = dishName.replace(/ /g, "%20");
             var newDishNameUrl = dishNameUrl.replace("&", "");
             var dishIdUrl = $(this).attr("data-dishid");
-            var newURL = "http://localhost:63342/Project1/P1-SearchResultsPage.html?searchResult=" + newDishNameUrl + "&dishid=" + dishIdUrl;
+            var newURL = "https://jparedeso.github.io/Project-1/P1-SearchResultsPage.html?searchResult=" + newDishNameUrl + "&dishid=" + dishIdUrl;
             window.location = newURL;
         });
         setTimeout(function() {

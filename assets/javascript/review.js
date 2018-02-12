@@ -26,7 +26,9 @@ var Review = function() {
             var newestReview = childSnapshot.val().review;
 
             console.log(newestReview);
-            $("#mainContainer").append("<p>" + newestReview);
+            $("#mainContainer").append(`
+                <p>${newestReview}</p>
+            `);
         });
     }
 

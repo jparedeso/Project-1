@@ -6,16 +6,28 @@ h1 {
 header {
     position: fixed;
     background-color: white;
-    margin-top: 0;
+    margin: 0;
+}
+.page-header {
+    margin-top: 10px;
 }
 
 #mainContainer {
-    margin-top: 300px;
+    margin-top: 250px;
     font-size: 15px;
 }
 
 footer {
     margin: 15px;
+}
+
+#myModal {
+    margin-top: 50px;
+    background-opacity: .5;
+}
+
+.navbar {
+    padding: 0px;
 }
 
 /*home page*/
@@ -27,7 +39,7 @@ footer {
 }
 
 #otherContainer {
-    margin-top: 300px;
+    margin-top: 250px;
     font-size: 15px;
 }
 
@@ -45,6 +57,10 @@ footer {
 
 .description {
     margin-bottom: 15px;
+}
+
+#favorites {
+    margin-top: 50px;
 }
 
 /*search page*/

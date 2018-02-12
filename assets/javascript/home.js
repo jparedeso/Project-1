@@ -334,11 +334,16 @@ var Home = function() {
         var items = shuffle(data);
 
         for (var i = 0; i < 6; i++) {
-            $("#dishDisplay" + i).attr("data-dishid", items[i].id);
-            $("#dishDisplay" + i).css({backgroundImage: `url('${items[i].image}')`});
+            $("#dishDisplay" + i).attr("data-dishid", items[i].id)
+                                 .attr("data-dishname", items[i].title)
+                                 .css({backgroundImage: `url('${items[i].image}')`});
             $("#dishDisplay" + i + " p").text(items[i].title);
         }
-
+        $(".galleryImage").on("click", function(){
+            var dishName = $(this).attr("data-dishname");
+            var dishNameUrl = dishName.replace(/ /g, "%20");
+            alert(dishNameUrl)
+        });
         setTimeout(function() {
             $(".galleryContainer").removeClass("hidden");
         }, 200);

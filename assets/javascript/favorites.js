@@ -39,7 +39,7 @@ var Favorites = function() {
     function showDishInstructions() {
         $("#selectionDisplay").html(`
                     <div>                        
-                        <h2><button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}"><i class="fas fa-heart"></i></button>  ${_dishData.title}</h2>
+                        <h2><button class="btn btn-primary" id="favDishButton" data-dishid="${_dishData.id}"><i class="fas fa-heart"></i></button>  ${_dishData.title}</h2>
                         <img src="${_dishData.image}">
                         <h3>Ingredients</h3>  
                         <div id="extendedIngredients"></div>

@@ -39,7 +39,7 @@ var Random = function() {
             
                 <h1 div id= "randomDescription">Be Inspired With a Random Recipe Below to Put Your Cooking Skills to The Test</h1>
                 <hr>
-                <h2><button class="btn btn-danger" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i></button>  ${_data[0].title}</h2>
+                <h2><button class="btn btn-primary" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i></button>  ${_data[0].title}</h2>
                 <h3>Ingredients</h3>  
                 <div id="extendedIngredients"></div>
                 <h3>Instructions</h3>  

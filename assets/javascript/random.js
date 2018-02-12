@@ -46,7 +46,7 @@ var Random = function() {
         `);
         for (var i = 0; i < _data[0].extendedIngredients.length; i++) {
             $("#extendedIngredients").append(`
-                        <p>${Number.isInteger(_dishData.extendedIngredients[i].amount) ? _dishData.extendedIngredients[i].amount : _dishData.extendedIngredients[i].amount.toFixed(2)} ${_data[0].extendedIngredients[i].unit} ${_data[0].extendedIngredients[i].name}</p>
+                        <p>${Number.isInteger(_data[0].extendedIngredients[i].amount) ? _data[0].extendedIngredients[i].amount : _data[0].extendedIngredients[i].amount.toFixed(2)} ${_data[0].extendedIngredients[i].unit} ${_data[0].extendedIngredients[i].name}</p>
                     `);
         }
         if (_data[0].analyzedInstructions.length > 0) {

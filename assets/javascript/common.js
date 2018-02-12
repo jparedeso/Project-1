@@ -12,7 +12,7 @@ var Common = function() {
     var _database = firebase.database();
     // FirebaseUI config.
     var uiConfig = {
-        signInSuccessUrl: 'P1-HomePage.html',
+        signInSuccessUrl: 'index.html',
         signInOptions: [
             {
                 provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID
@@ -74,10 +74,24 @@ var Common = function() {
                 // $("#loginButton").text("Log Out");
 
 
-                var url = Cookies.get("redirectUrl");
-                if (url) {
-                    Cookies.remove("redirectUrl");
-                    window.location = url;
+                // var url = Cookies.get("redirectUrl");
+                // if (url) {
+                //     Cookies.remove("redirectUrl");
+                //     window.location = url;
+                // }
+                var newFbDishName = Cookies.get("randomdishtitle");
+                var newFbDishId = Cookies.get("randomdishid");
+                var currentUserId = Cookies.get("UserID");
+                if (newFbDishId) {
+                    _database.ref("/Users/" + currentUserId).child(newFbDishId).set({
+                        "dishid": newFbDishId,
+                        "dishname": newFbDishName
+                        // "dishingredients": _data[0].extendedIngredients
+                        // "dishinstructions": _data[0].analyzedInstructions
+                    });
+                    Cookies.remove("randomdishtitle");
+                    Cookies.remove("randomdishid");
+                    window.location = "P1-FavoritesPage.html";
                 }
                 // var displayName = user.displayName;
                 // var email = user.email;
@@ -111,7 +125,7 @@ var Common = function() {
                     // $("<button type='button' class='btn primary' data-toggle='modal' data-target='#myModal' id='loginButton'>Log In</button>").insertBefore(".navbar-form.navbar-right");
                     firebase.auth().signOut();
                     Cookies.remove("UserID");
-                    window.location = "P1-HomePage.html";
+                    window.location = "index.html";
                 });
                 // } else {
             //     // User is signed out.
@@ -119,7 +133,7 @@ var Common = function() {
             //     document.getElementById('sign-in').textContent = 'Sign in';
             //     document.getElementById('account-details').textContent = 'null';
             //     $("#sign-in").click(function () {
-            //         window.location = "P1-HomePage.html";
+            //         window.location = "index.html";
             //     });
             } else {
                 $("<button type='button' class='btn primary' data-toggle='modal' data-target='#myModal' id='loginButton'>Log In</button>").insertBefore(".navbar-form.navbar-right");

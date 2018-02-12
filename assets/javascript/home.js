@@ -46,9 +46,9 @@ var Home = function() {
                 "image": "https://spoonacular.com/recipeImages/478944-556x370.jpg"
             },
             {
-                "id": 601141,
-                "title": "Berry Green Smoothie",
-                "image": "https://spoonacular.com/recipeImages/601141-556x370.jpg"
+                "id": 854822,
+                "title": "Peruvian Lomo Saltado",
+                "image": "https://spoonacular.com/recipeImages/854822-556x370.jpg"
             },
             {
                 "id": 622677,

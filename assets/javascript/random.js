@@ -1,7 +1,9 @@
 var Random = function() {
     var _data;
+    var _db;
 
     function init() {
+        _db = Common.getDatabase();
         initEventHandlers();
         showRandomDishData();
     }
@@ -37,7 +39,7 @@ var Random = function() {
             
                 <h1 div id= "randomDescription">Be Inspired With a Random Recipe Below to Put Your Cooking Skills to The Test</h1>
                 <hr>
-                <h2><button class="btn btn-danger" id="favDishButton"><i class="fas fa-heart"></i></button>  ${_data[0].title}</h2>
+                <h2><button class="btn btn-danger" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i></button>  ${_data[0].title}</h2>
                 <h3>Ingredients</h3>  
                 <div id="extendedIngredients"></div>
                 <h3>Instructions</h3>  
@@ -67,6 +69,26 @@ var Random = function() {
                 <img src="${_data[0].image}">
             </div>
         `);
+        $("#favDishButton").on("click", addToFavorites);
+    }
+
+    function addToFavorites() {
+        var favoriteDishId = _data[0].id;
+        var userID = Cookies.get("UserID");
+        if (userID) {
+            console.log(userID);
+            _db.ref("/Users/" + userID).child(favoriteDishId).set({
+                "dishid": _data[0].id,
+                "dishname": _data[0].title
+                // "dishingredients": _data[0].extendedIngredients
+                // "dishinstructions": _data[0].analyzedInstructions
+            });
+        } else {
+            Cookies.set("randomdishid", $(this).attr("data-dishid"));
+            Cookies.set("randomdishtitle", $(this).attr("data-dishtitle"));
+            $("#myModal").modal("toggle");
+            console.log("You are not logged in.");
+        }
     }
 
     return {

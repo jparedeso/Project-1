@@ -6,11 +6,14 @@ h1 {
 header {
     position: fixed;
     background-color: white;
-    margin-top: 0;
+    margin: 0;
+}
+.page-header {
+    margin-top: 10px;
 }
 
 #mainContainer {
-    margin-top: 300px;
+    margin-top: 200px;
     font-size: 15px;
 }
 
@@ -23,6 +26,10 @@ footer {
     background-opacity: .5;
 }
 
+.navbar {
+    padding: 0px;
+}
+
 /*home page*/
 
 #foodScroll {
@@ -32,7 +39,7 @@ footer {
 }
 
 #otherContainer {
-    margin-top: 300px;
+    margin-top: 200px;
     font-size: 15px;
 }
 

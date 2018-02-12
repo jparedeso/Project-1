@@ -81,6 +81,63 @@
       </div>
       <div id="selectionDisplay" class="col-md-6"></div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="goOutToDinner" class="hidden">
+
+                <div class="container-map" id="map-dir">
+                    <a class="input-wrapper, top">
+                        <a id="floating-panel2" class="foodChoice">
+                            <b>I Want To Eat: </b>
+                            <select id="mode2">
+                                <option class="cuisine" id="cuisine0" value="1">American</option>
+                                <option class="cuisine" id="cuisine1" value="154">International</option>
+                                <option class="cuisine" id="cuisine2" value="162">Peruvian</option>
+                                <option class="cuisine" id="cuisine3" value="55">Italian</option>
+                                <option class="cuisine" id="cuisine4" value="73">Mexican</option>
+                                <option class="cuisine" id="cuisine5" value="148">Indian</option>
+                                <option class="cuisine" id="cuisine6" value="25">Chinese</option>
+                                <option class="cuisine" id="cuisine7" value="60">Japanese</option>
+                                <option class="cuisine" id="cuisine8" value="70">Mediterranean</option>
+                                <option class="cuisine" id="cuisine9" value="83">Seafood</option>
+                                <option class="cuisine" id="cuisine10" value="308">Vegetarian</option>
+                                <option class="cuisine" id="cuisine11" value="143">Healthy Food</option>
+                                <option class="cuisine" id="cuisine12" value="40">Fast Food</option>
+                                <option class="cuisine" id="cuisine13" value="100">Desserts</option>
+                            </select>
+                        </a>
+                        <input class="phldr" dir="auto" type="text" placeholder="Your address" name="direction-display" id="start" maxlength="30"
+                               class="input--text" aria-label="name">
+                    </a>
+                    <!--<a class="input-wrapper, top">-->
+                    <!--<input dir="auto" type="text" placeholder="Restaurant's address" name="Restaurant's address" id="end" maxlength="30" class="input&#45;&#45;text"-->
+                    <!--aria-label="name">-->
+                    <!--</a>-->
+                    <a id="floating-panel" class="transpChoice">
+                        <b>Mode of Travel: </b>
+                        <select id="mode">
+                            <option value="DRIVING">Driving</option>
+                            <option value="WALKING">Walking</option>
+                            <option value="BICYCLING">Bicycling</option>
+                            <option value="TRANSIT">Transit</option>
+                        </select>
+                    </a>
+                    <button id="submit" class="top">Update my location</button>
+                </div>
+
+                <div id="map-results">
+                    <div id="map"></div>
+                    <!-- Container for the map -->
+                    <div id="right-panel">
+                        <!-- Container for the directions -->
+                        <p>Total Distance:
+                            <span id="total"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -117,61 +174,9 @@
 
   <!-- Map insertion html -->
 
-  <div id="goOutToDinner" class="hidden">
 
-    <div class="container-map" id="map-dir">
-      <a class="input-wrapper, top">
-          <a id="floating-panel2" class="foodChoice">
-              <b>I Want To Eat: </b>
-              <select id="mode2">
-                  <option class="cuisine" id="cuisine0" value="1">American</option>
-                  <option class="cuisine" id="cuisine1" value="154">International</option>
-                  <option class="cuisine" id="cuisine2" value="162">Peruvian</option>
-                  <option class="cuisine" id="cuisine3" value="55">Italian</option>
-                  <option class="cuisine" id="cuisine4" value="73">Mexican</option>
-                  <option class="cuisine" id="cuisine5" value="148">Indian</option>
-                  <option class="cuisine" id="cuisine6" value="25">Chinese</option>
-                  <option class="cuisine" id="cuisine7" value="60">Japanese</option>
-                  <option class="cuisine" id="cuisine8" value="70">Mediterranean</option>
-                  <option class="cuisine" id="cuisine9" value="83">Seafood</option>
-                  <option class="cuisine" id="cuisine10" value="308">Vegetarian</option>
-                  <option class="cuisine" id="cuisine11" value="143">Healthy Food</option>
-                  <option class="cuisine" id="cuisine12" value="40">Fast Food</option>
-                  <option class="cuisine" id="cuisine13" value="100">Desserts</option>
-              </select>
-          </a>
-        <input class="phldr" dir="auto" type="text" placeholder="Your address" name="direction-display" id="start" maxlength="30"
-          class="input--text" aria-label="name">
-      </a>
-      <!--<a class="input-wrapper, top">-->
-        <!--<input dir="auto" type="text" placeholder="Restaurant's address" name="Restaurant's address" id="end" maxlength="30" class="input&#45;&#45;text"-->
-          <!--aria-label="name">-->
-      <!--</a>-->
-      <a id="floating-panel" class="transpChoice">
-        <b>Mode of Travel: </b>
-        <select id="mode">
-          <option value="DRIVING">Driving</option>
-          <option value="WALKING">Walking</option>
-          <option value="BICYCLING">Bicycling</option>
-          <option value="TRANSIT">Transit</option>
-        </select>
-      </a>
-      <button id="submit" class="top">Submit</button>
-    </div>
-
-    <div id="map-results">
-      <div id="map"></div>
-      <!-- Container for the map -->
-      <div id="right-panel">
-        <!-- Container for the directions -->
-        <p>Total Distance:
-          <span id="total"></span>
-        </p>
-      </div>
-    </div>
-  </div>
-  <footer><br><br><br><br><br><br><br><br>
-    <div class="lastContainer">
+  <footer><br><br><br><br><br><br><br><br><br>
+    <div class="container">
       <div class="row">
         <div class="col-md-9">
         </div>

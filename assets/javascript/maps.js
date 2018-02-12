@@ -10,82 +10,61 @@ function initMap() {
         var lat;                            // latitude variable
         var lng;                            // longitudew variable
         var yourAddress;                    // Holds the human address
-        var infoWindow;
+        var infoWindow = new google.maps.InfoWindow;
         var cuisine = 1;
+        var restaurants;
+        var markers = [];
+        var directionsDisplay;
 
         initEventHandlers();
 
         function initEventHandlers() {
-            $("#goOut-btn").on('click', ipLocationRequest);
+            $("#goOut-btn").on('click', requestIpLocation);
 
             $("#submit").on('click', function () {    // Click to search for directions to the restaurant
-                console.log(cuisine);
                 if (autoLocate && $(".phldr").val() === "") {
                     startPoint = pos;
                     $(".phldr").attr("placeholder", yourAddress);
                     infoWindow.setContent(yourAddress);
                 } else {
                     startPoint = $("#start").val();
+                    $.ajax({
+                        url   : "http://maps.google.com/maps/api/geocode/json",
+                        data: { address: startPoint },
+                        method: "GET"
+                    }).done(function (res) {
+                        infoWindow.setPosition({
+                            lat: res.results[0].geometry.location.lat,
+                            lng: res.results[0].geometry.location.lng
+                        });
+                        infoWindow.setContent("Starting Location");
+                        if (directionsDisplay != null) {
+                            directionsDisplay.setMap(null);
+                            directionsDisplay = null;
+                        }
+                        configRoute();
+                    });
                 }
-                getRestaurantInfo(function(res, status) {
-                    console.log(res.restaurants);
-                    endPoint = res.restaurants[0].restaurant.location.address;
-
-                    // endPoint = $("#end").val();             // Center Map at these coordinates
-                    modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
-                    initMap();
-                });
+                // getRestaurantInfo(function(res, status) {
+                //     restaurants = res.restaurants;
+                //     console.log(restaurants);
+                //     endPoint = restaurants[0].restaurant.location.address;
+                //
+                //     // endPoint = $("#end").val();             // Center Map at these coordinates
+                //     modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
+                //     configRoute();
+                // });
             });
 
             $("#mode2").on("change", function() {
+                deleteMarkers();
                 cuisine = $(this).val();
+                getRestaurantInfo(function (res, status) {
+                    restaurants = res.restaurants;
+                    endPoint = restaurants[0].restaurant.location.address;
+                    displayMarkers();
+                });
             });
-        }
-
-        function initMap() {                                        // Center Map at these coordinates
-            // map = new google.maps.Map(document.getElementById('map'), {
-            //   zoom: 8,
-            //   center: { lat: 95.7129, lng: 37.0902 }  // America.
-            // });
-
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer({
-                draggable: true,
-                map      : map,
-                panel    : document.getElementById('right-panel')
-            });
-
-            directionsDisplay.addListener('directions_changed', function () {
-                computeTotalDistance(directionsDisplay.getDirections());
-            });
-
-            displayRoute(startPoint, endPoint, directionsService, directionsDisplay);
-        }
-
-        function displayRoute(origin, destination, service, display) {
-            service.route({
-                origin     : origin,
-                destination: destination,
-                //   waypoints: [{location: 'Adelaide, SA'}, {location: 'Broken Hill, NSW'}],
-                travelMode : modeOfTravel,
-                avoidTolls : true
-            }, function (response, status) {
-                if (status === 'OK') {
-                    display.setDirections(response);
-                } else {
-                    alert('Could not display directions due to: ' + status);
-                }
-            });
-        }
-
-        function computeTotalDistance(result) {
-            var total = 0;
-            var myroute = result.routes[0];
-            for (var i = 0; i < myroute.legs.length; i++) {
-                total += myroute.legs[i].distance.value;
-            }
-            total = total * 0.621371 / 1000;
-            document.getElementById('total').innerHTML = total.toFixed(2) + ' mi';
         }
 
         // setTimeout(function() { $("#right-panel").hide() }, 3000);
@@ -93,41 +72,41 @@ function initMap() {
         // setTimeout(function() { $("#right-panel").hide() }, 9000);
         // setTimeout(function() { $("#right-panel").show() }, 12000);
 
-        function ipLocationRequest() {
-            infoWindow = new google.maps.InfoWindow;
-
+        function requestIpLocation() {
             // Try HTML5 geolocation.
+            console.log("navigator.geolocation", navigator.geolocation);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     lat = position.coords.latitude;
                     lng = position.coords.longitude;
-
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        zoom  : 3,
-                        center: {lat: 39.5, lng: -95.35}        // America.
-                    });
-
-                    getRestaurantInfo(function(res, status) {
-                        console.log(res.restaurants);
-                        endPoint = res.restaurants[0].restaurant.location.address;
-                    });
-
-
-                    $("#goOutToDinner").removeClass("hidden");
-
                     pos = { lat: lat, lng: lng };
 
-                    autoLocate = true;
+                    getRestaurantInfo(function(res, status) {
+                        restaurants = res.restaurants;
+                        console.log(restaurants);
+                        endPoint = restaurants[0].restaurant.location.address;
+
+                        $("#goOutToDinner").removeClass("hidden");
+
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: position ? 11 : 3,
+                            center: position ? pos : {lat: 39.5, lng: -95.35},
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        });
+
+                        //region Display Current Location
+                        autoLocate = true;
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('Your Location');
+                        infoWindow.open(map);
+                        //endregion
+
+                        //region Display Restaurants on map
+                        displayMarkers();
+                        //endregion
+                    });
 
                     var queryURL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true";
-
-                    infoWindow.setPosition(pos);
-
-                    infoWindow.setContent('Your Location');
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                    map.setZoom(12);
-
                     $.ajax({
                         url   : queryURL,
                         method: "GET"
@@ -137,7 +116,6 @@ function initMap() {
                 }, function () {
                     handleLocationError(true, infoWindow, map.getCenter());
                 });
-
             } else {
                 // Browser doesn't support Geolocation
                 handleLocationError(false, infoWindow, map.getCenter());
@@ -175,6 +153,113 @@ function initMap() {
                     console.error(error);
                 }
             });
+        }
+
+        function displayMarkers() {
+            var infowindow2 = new google.maps.InfoWindow();
+
+            var marker;
+            var i;
+
+            for (i = 0; i < restaurants.length; i++) {
+                var location = restaurants[i].restaurant.location;
+
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(location.latitude, location.longitude),
+                    map     : map
+                });
+                markers.push(marker);
+                var bounds = new google.maps.LatLngBounds();
+                bounds.extend(infoWindow.getPosition());
+                for (var j = 0; j < markers.length; j++) {
+                    bounds.extend(markers[j].getPosition());
+                }
+
+                map.fitBounds(bounds);
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow2.setContent(`<h3>${restaurants[i].restaurant.name}</h3>
+                                                <p class="restaurantDirections" data-latitude="${restaurants[i].restaurant.location.latitude}" data-longitude="${restaurants[i].restaurant.location.longitude}">Show directions for this location.</p>
+                                              `);
+                        infowindow2.open(map, marker);
+                        $(".restaurantDirections").on("click", function() {
+                            if (directionsDisplay != null) {
+                                directionsDisplay.setMap(null);
+                                directionsDisplay = null;
+                            }
+                            $("#right-panel").html("");
+                            console.log(cuisine);
+                            if (autoLocate && $(".phldr").val() === "") {
+                                startPoint = pos;
+                                $(".phldr").attr("placeholder", yourAddress);
+                                infoWindow.setContent(yourAddress);
+                            } else {
+                                startPoint = $("#start").val();
+                            }
+                            getRestaurantInfo(function(res, status) {
+                                restaurants = res.restaurants;
+                                console.log(restaurants);
+                                endPoint = restaurants[i].restaurant.location.address;
+
+                                // endPoint = $("#end").val();             // Center Map at these coordinates
+                                modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
+                                configRoute();
+                            });
+                        });
+                    }
+                })(marker, i));
+            }
+        }
+
+        function deleteMarkers() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        }
+
+        function configRoute() {
+            var directionsService = new google.maps.DirectionsService;
+             directionsDisplay = new google.maps.DirectionsRenderer({
+                draggable: true,
+                map      : map,
+                panel    : document.getElementById('right-panel')
+            });
+
+            directionsDisplay.addListener('directions_changed', function () {
+                computeTotalDistance(directionsDisplay.getDirections());
+            });
+
+            var config = {
+                origin     : startPoint,
+                destination: endPoint,
+                //   waypoints: [{location: 'Adelaide, SA'}, {location: 'Broken Hill, NSW'}],
+                travelMode : modeOfTravel,
+                avoidTolls : true
+            };
+
+            displayRoute(config, directionsService, directionsDisplay);
+        }
+
+        function displayRoute(config, service, display) {
+            service.route(config, function (response, status) {
+                if (status === 'OK') {
+
+                    display.setDirections(response);
+                } else {
+                    alert('Could not display directions due to: ' + status);
+                }
+            });
+        }
+
+        function computeTotalDistance(result) {
+            var total = 0;
+            var route = result.routes[0];
+            for (var i = 0; i < route.legs.length; i++) {
+                total += route.legs[i].distance.value;
+            }
+            total = total * 0.621371 / 1000; // convert from x to y
+            $('#total').text(total.toFixed(2) + ' mi');
         }
 
         // setTimeout(function () { dineOut() },500);

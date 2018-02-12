@@ -90,7 +90,7 @@ img {
 }
 
 #mode {
-    position: absolute;
+    /*position: absolute;*/
     left: 29px;
     top: -1px;
 }

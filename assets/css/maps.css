@@ -1,0 +1,125 @@
+#right-panel {
+    font-family: 'Roboto', 'sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
+
+  #right-panel select,
+  #right-panel input {
+    font-size: 15px;
+  }
+
+  #right-panel select {
+    width: 100%;
+  }
+
+  #right-panel i {
+    font-size: 12px;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #map {
+    height: 100%;
+    float: left;
+    width: 63%;
+    border-right: dotted 2px;
+  }
+
+  #right-panel {
+    overflow: scroll;
+    float: right;
+    width: 34%;
+    height: 100%;
+    font-size: 9px;
+  }
+
+  .panel {
+    height: 50%;
+    overflow: auto;
+  }
+
+  #map-results {
+    margin: auto;
+    width: 100%;
+    height: 600px;
+    border: solid 3px;
+    /* position: fixed;
+    bottom: 0;
+    right: 0; */
+  }
+
+  #floating-panel {
+    /* position: absolute; */
+    /* top: 72px;
+    left: 35%; */
+    z-index: 5;
+    background-color: #fff;
+    /* padding: 5px; */
+    /* border: 1px solid #999; */
+    text-align: center;
+    /* font-family: 'Roboto','sans-serif'; */
+    /* line-height: 10px;
+    padding-left: 10px; */
+  }
+
+  #floating-panel2 {
+    /* position: absolute; */
+    /* top: 72px;
+    left: 35%; */
+    z-index: 5;
+    background-color: #fff;
+    /* padding: 5px; */
+    /* border: 1px solid #999; */
+    text-align: center;
+    /* font-family: 'Roboto','sans-serif'; */
+    /* line-height: 10px;
+    padding-left: 10px; */
+    padding: 8px 0 0 0;
+    position: relative;
+    right: 92px;
+  }
+
+  #map-dir {
+    padding: 8px 0 0 0;
+    margin: auto;
+    padding-left: 68px;
+    width: 100%;
+    height: 50px;
+    vertical-align: middle;
+    border: solid 3px;
+    border-bottom: none;
+  }
+
+  #goOutToDinner {
+    margin: auto;
+    margin-top: 5px;
+    width: 100%;
+    height: 600px;
+
+  }
+
+  .top {
+    margin: auto 3px;
+    /* padding: 2% 0; */
+  }
+  /*#destination {*/
+      /*background-color: blue;*/
+      /*margin: auto;*/
+      /*width: 100%;*/
+      /*!* height: 550px; *!*/
+      /*border: solid 3px;*/
+  /*} */
+
+  .container-map {
+    padding: 20px;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    /* height: 2%; */
+  }

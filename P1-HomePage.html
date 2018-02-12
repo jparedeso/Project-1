@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <title>Home Page</title>
+
+    <!-- Latest compiled and minified Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css"/>
+
+    <!-- Latest compiled and minified Bootstrap Javascript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <script type="text/javascript" src="assets/javascript/common.js"></script>
+    <script type="text/javascript" src="assets/javascript/home.js"></script>
+</head>
+
+<body>
+
+<header class="fixed-top">
+    <div class="page-header">
+        <h1><img src="assets/images/logosmall.png" alt="Logo" div id="logo" width="50" height="50"> Cook-or-Naught
+            <small>The App For Kitchen Adulting... Or Naught.</small>
+        </h1>
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <a class="btn primary" href="P1-HomePage.html" role="button" aria-expanded="false">Home</a></button>
+                    <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                       aria-expanded="false">Favorites</a></button>
+                    <a class="btn primary" href="P1-RandomPage.html" role="button" aria-expanded="false">I'm Feeling
+                        Lucky</a></button>
+                    <a class="btn primary" href="P1-ReviewPage.html" role="button"
+                       aria-expanded="false">Reviews</a></button>
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Recipe Search" id="mySearch">
+                            <button type="submit" class="btn btn-default" id="searchButton">Go</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div id="mainContainer" class="container">
+    <div class="galleryContainer hidden" style="position: relative; height: 456px;">
+        <div class="galleryItem" style="position: absolute; left: 0%; top: 0px;">
+            <div id="dishDisplay0" class="galleryImage"
+                 style="background-position: center; background-size: cover; height: 228px">
+                <div class="imageOverlay">
+                    <div class="galleryDishTitle">
+                        <p class="text-center" style="margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="galleryItem doubleSize" style="position: absolute; left: 20%; top: 0px;">
+            <div id="dishDisplay1" class="galleryImage"
+                 style="background-position: center; background-size: cover; height: 456px">
+                <div class="imageOverlay">
+                    <div class="galleryDishTitle">
+                        <p class="text-center" style="margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="galleryItem" style="position: absolute; left: 60%; top: 0px;">
+            <div id="dishDisplay2" class="galleryImage"
+                 style="background-position: center; background-size: cover; height: 228px">
+                <div class="imageOverlay">
+                    <div class="galleryDishTitle">
+                        <p class="text-center" style="margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="galleryItem" style="position: absolute; left: 80%; top: 0px;">
+            <div id="dishDisplay3" class="galleryImage"
+                 style="background-position: center; background-size: cover; height: 228px">
+                <div class="imageOverlay">
+                    <div class="galleryDishTitle">
+                        <p class="text-center" style="margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="galleryItem" style="position: absolute; left: 0%; top: 228px;">
+            <div id="dishDisplay4" class="galleryImage"
+                 style="background-position: center; background-size: cover; height: 228px">
+                <div class="imageOverlay">
+                    <div class="galleryDishTitle">
+                        <p class="text-center" style="margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="galleryItem doubleSize" style="position: absolute; left: 60%; top: 228px;">
+            <div id="dishDisplay5" class="galleryImage"
+                 style="background-position: center; background-size: cover; height: 228px">
+                <div class="imageOverlay">
+                    <div class="galleryDishTitle">
+                        <p class="text-center" style="margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div id="info" class="col-md-12">
+            <h2 class="description">Welcome to Cook-or-Naught...</h2>
+            <hr>
+            <h3 class="description">The app designed for those of us who are very food motivated.</h3>
+            <p class="description">This is your one-stop shop for feeding your face, whether you throw on your apron and
+                get messy, or you leave that to someone else and go out to eat.</p>
+            <p class="description">Here you can search for recipes for your favorite foods and drinks or just click "I'm Feeling
+                Lucky" at the top and we'll give you a random recipe to try.</p>
+            <p class="description">Any recipe you like or want to save and try another time you're feeling
+                frisky, show it some love and just click the little heart to add them to your favorites page. You can do this
+                by logging in to create an account.</p>
+            <p class="description">Now, we've all been elbow deep in flour and closed the oven door too hard and our
+                soufflé falls, tried to get just the right crust on the crème brûlée with the torch and now the fire
+                department is at our house, or we don't want to adult and would rather say screw it and just go out to
+                eat. Either way we've got you covered. You don't have to waste time switching apps, just click "Go Out"
+                and we'll provide a map for restaurants near you where you can get what you want.
+            <p class="description">Ok, you now that you've got the gist, channel your inner Julia Child or Martha
+                Stewart and get chopping....or naught!</p>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal</h4>
+            </div>
+            <div class="modal-body">
+                <div id="firebaseui-auth-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+
+
+
+

@@ -53,7 +53,7 @@ var Results = function() {
             `);
             for (var i = 0; i < _data.length; i++) {
                 $("#dishDisplay").append(`
-                    <h5 class="btn dishLinks btn btn-default",  data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
+                    <h5 class="btn dishLinks btn btn-default" data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
                 `);
             }
             $(".dishLinks").on("click", function () {
@@ -108,11 +108,15 @@ var Results = function() {
     }
 
     function addToFavorites() {
+        var favoriteDishId = _dishData.id;
         var userID = Cookies.get("UserID");
         if (userID) {
             console.log(userID);
-            _db.ref("/Users").child(userID).set({
-                test: "test"
+            _db.ref("/Users/" + userID).child(favoriteDishId).set({
+                "dishid": _dishData.id,
+                "dishname": _dishData.title
+                // "dishingredients": _dishData.extendedIngredients
+                // "dishinstructions": _dishData.analyzedInstructions
             });
         } else {
             Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));

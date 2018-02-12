@@ -1,40 +1,42 @@
-$(function() {
-    // var reviewsConfig = {
-    //     apiKey: "AIzaSyDi-uMjUfC7VilkJyEjiC3bLqKWGfdBkzs",
-    //     authDomain: "reviewspage-e6e30.firebaseapp.com",
-    //     databaseURL: "https://reviewspage-e6e30.firebaseio.com",
-    //     projectId: "reviewspage-e6e30",
-    //     storageBucket: "reviewspage-e6e30.appspot.com",
-    //     messagingSenderId: "545138867669"
-    // };
-    // firebase.initializeApp(reviewsConfig);
-    // var db = firebase.db();
-    var db = Common.getDatabase();
+var Review = function() {
+    var _db = Common.getDatabase();
+    function init() {
+        initEventHandlers();
+    }
+    function initEventHandlers() {
+        $("#addReview").on("click", function (event) {
+            event.preventDefault();
 
-    $("#addReview").on("click", function (event) {
-        event.preventDefault();
+            var newestReview = $("#reviewsInput").val().trim();
 
-        var newestReview = $("#reviewsInput").val().trim();
+            var newReview = {
+                review: newestReview
+            };
 
-        var newReview = {
-            review: newestReview
-        };
+            _db.ref("/Reviews").push(newReview);
 
-        // db.ref().push(newReview);
+            console.log(newReview.review);
+            $("#reviewsInput").val("");
+        });
 
-        db.ref("/Reviews").push(newReview);
+        _db.ref("/Reviews").on("child_added", function (childSnapshot, prevChildKey) {
 
-        console.log(newReview.review);
-        $("#reviewsInput").val("");
-    });
+            console.log(childSnapshot.val());
 
-    db.ref("/Reviews").on("child_added", function (childSnapshot, prevChildKey) {
+            var newestReview = childSnapshot.val().review;
 
-        console.log(childSnapshot.val());
+            console.log(newestReview);
+            $("#mainContainer").append(`
+                <p>${newestReview}</p>
+            `);
+        });
+    }
 
-        var newestReview = childSnapshot.val().review;
+    return {
+        init: init
+    };
+}();
 
-        console.log(newestReview);
-        $("#mainContainer").append("<p>" + newestReview);
-    });
+$(function () {
+    Review.init();
 });

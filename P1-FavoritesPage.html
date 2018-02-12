@@ -31,6 +31,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
     <script type="text/javascript" src="assets/javascript/common.js"></script>
+    <script type="text/javascript" src="assets/javascript/favorites.js"></script>
 </head>
 
 <body>
@@ -59,11 +60,14 @@
 
 <div id="mainContainer" class="container">
     <div class="row">
-        <div id="favorites" class="col-md-8"><h2>This is the place to stash all your favorites dishes.</h2>
-            <hr>
-            Whether you made it yourself or...... paid someone else to make it (No Judgement!) 
+        <div class="col-md-6">
+            <div id="favorites" class="col-md-8"><h2>This is the place to stash all your favorites dishes.</h2>
+                <hr>
+                <p>Whether you made it yourself or...... paid someone else to make it (No Judgement!)</p>
+                <div id="favorites-results"></div>
+            </div>
         </div>
-        <div id="favorites-results"></div>
+        <div class="col-md-6" id="selectionDisplay"></div>
     </div>
 </div>
 <div class="modal fade" id="myModal" role="dialog">

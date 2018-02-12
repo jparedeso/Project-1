@@ -334,11 +334,19 @@ var Home = function() {
         var items = shuffle(data);
 
         for (var i = 0; i < 6; i++) {
-            $("#dishDisplay" + i).attr("data-dishid", items[i].id);
-            $("#dishDisplay" + i).css({backgroundImage: `url('${items[i].image}')`});
+            $("#dishDisplay" + i).attr("data-dishid", items[i].id)
+                                 .attr("data-dishname", items[i].title)
+                                 .css({backgroundImage: `url('${items[i].image}')`});
             $("#dishDisplay" + i + " p").text(items[i].title);
         }
-
+        $(".galleryImage").on("click", function(){
+            var dishName = $(this).attr("data-dishname");
+            var dishNameUrl = dishName.replace(/ /g, "%20");
+            var newDishNameUrl = dishNameUrl.replace("&", "");
+            var dishIdUrl = $(this).attr("data-dishid");
+            var newURL = "http://localhost:63342/Project1/P1-SearchResultsPage.html?searchResult=" + newDishNameUrl + "&dishid=" + dishIdUrl;
+            window.location = newURL;
+        });
         setTimeout(function() {
             $(".galleryContainer").removeClass("hidden");
         }, 200);

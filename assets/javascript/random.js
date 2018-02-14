@@ -59,11 +59,13 @@ var Random = function() {
         }
         $("#randomResult").append(`
             <div>
-                <h2>${_data[0].title}</h2>
-                <h3>Ingredients</h3>  
-                <div id="extendedIngredients"></div>
-                <h3>Instructions</h3>  
-                <div id="analyzedInstructions"></div>                      
+            <!--TODO: replace all styles with .child()
+            -->
+                <h2 style="margin-top: 15px;">${_data[0].title}</h2>
+                <h3 style="margin-top: 15px;">Ingredients</h3>  
+                <div style="margin-top: 15px;" id="extendedIngredients"></div>
+                <h3 style="margin-top: 15px;">Instructions</h3>  
+                <div style="margin-top: 15px;" id="analyzedInstructions"></div>                      
             </div>
         `);
         for (var i = 0; i < _data[0].extendedIngredients.length; i++) {
@@ -86,7 +88,7 @@ var Random = function() {
 
         $("#randomDisplay").append(`
             <div>
-                <img src="${_data[0].image}">
+                <img style="position: fixed;" src="${_data[0].image}">
             </div>
         `);
 

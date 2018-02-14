@@ -16,7 +16,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css"/>
 
     <!-- Latest compiled and minified Bootstrap Javascript-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -38,14 +38,19 @@
 
 <header class="fixed-top">
     <div class="page-header">
-        <h1><img src="assets/images/logosmall.png" alt="Logo" div id="logo" width="50" height="50"> Adventurous Huh? <small>Let's See Your Skills!</small></h1>
+        <h1><img src="assets/images/logosmall.png" alt="Logo" div id="logo" width="50" height="50"> Adventurous Huh?
+            <small>Let's See Your Skills!</small>
+        </h1>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar">
-                    <a class="btn primary"  href="index.html" role = "button" aria-expanded="false" >Home</a></button>
-                    <a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>
-                    <a class="btn primary"  href="P1-RandomPage.html" role = "button" aria-expanded="false" >I'm Feeling Lucky</a></button>
-                    <a class="btn primary"  href="P1-ReviewPage.html" role = "button" aria-expanded="false" >Reviews</a></button>
+                    <a class="btn primary" href="index.html" role="button" aria-expanded="false">Home</a></button>
+                    <a class="btn primary" href="P1-FavoritesPage.html" role="button"
+                       aria-expanded="false">Favorites</a></button>
+                    <a class="btn primary" href="P1-RandomPage.html" role="button" aria-expanded="false">I'm Feeling
+                        Lucky</a></button>
+                    <a class="btn primary" href="P1-ReviewPage.html" role="button"
+                       aria-expanded="false">Reviews</a></button>
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Recipe Search" id="mySearch">
@@ -60,9 +65,9 @@
 
 <div id="mainContainer" class="container">
     <div class="row">
-        
+
         <div class="col-md-6">
-            <div id="randomResult"></div> 
+            <div id="randomResult"></div>
             <!--<a class="btn primary"  href="P1-FavoritesPage.html" role = "button" aria-expanded="false" >Favorites</a></button>-->
         </div>
         <div class="col-md-6">
@@ -73,19 +78,29 @@
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal</h4>
+            <!--<div class="modal-header">-->
+            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+            <!--<h4 class="modal-title">Sign In</h4>-->
+            <!--</div>-->
+            <div class="modal-body">
+                <div id="firebaseui-auth-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close
+                </button>
+            </div>
         </div>
-        <div class="modal-body">
-            <div id="firebaseui-auth-container"></div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>
         </div>
-        <div class="modal-footer">
-          <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>
-        </div>
-      </div>
-     </div>
-  </div>
+    </div>
+</footer>
 </body>
 </html>
 

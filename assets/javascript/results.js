@@ -78,11 +78,23 @@ var Results = function() {
     }
 
     function showDishInstructions() {
-        $("#selectionDisplay").html(`
+        var favoriteDishId = Cookies.get("favoritedishid");
+        if (favoriteDishId == _dishData.id) {
+            $("#selectionDisplay").html(`
                     <div>                        
                         <div id="favoriteButton">
-                            <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+                            <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
                         </div>
+            `);
+        } else {
+            $("#selectionDisplay").html(`
+                        <div>                        
+                            <div id="favoriteButton">
+                                <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+                            </div>
+            `);
+        }
+        $("#selectionDisplay").append(`    
                         <h2>${_dishData.title}</h2>
                         <img src="${_dishData.image}">
                         <h3>Ingredients</h3>  
@@ -90,7 +102,7 @@ var Results = function() {
                         <h3>Instructions</h3>  
                         <div id="analyzedInstructions"></div>                      
                     </div>
-                `);
+        `);
         for (var i = 0; i < _dishData.extendedIngredients.length; i++) {
             $("#extendedIngredients").append(`
                         <p>${Number.isInteger(_dishData.extendedIngredients[i].amount) ? _dishData.extendedIngredients[i].amount : _dishData.extendedIngredients[i].amount.toFixed(2)} ${_dishData.extendedIngredients[i].unit} ${_dishData.extendedIngredients[i].name}</p>
@@ -109,6 +121,7 @@ var Results = function() {
             `)
         }
         $("#favDishButton").on("click", addToFavorites);
+        $("#unfavDishButton").on("click", removeFromFavorites);
     }
 
     function addToFavorites() {
@@ -137,7 +150,9 @@ var Results = function() {
     }
 
     function removeFromFavorites() {
+
         _db.ref("/Users/" + _currentUser + "/" + _dishData.id).remove();
+        Cookies.remove("favoritedishid");
         $("#favoriteButton button").remove();
         $("#favoriteButton").append(`
             <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>

@@ -35,7 +35,7 @@ var Random = function() {
     }
 
     function renderList() {
-        var favoriteDishId = Cookies.get("favoritedishid");
+        var favoriteDishId = Cookies.get(_data[0].id);
 
         $("#randomResult").html(`
             <h1 div id= "randomDescription">Be Inspired With a Random Recipe Below to Put Your Cooking Skills to The Test</h1>
@@ -94,7 +94,7 @@ var Random = function() {
     function addToFavorites() {
         var favoriteDishId = _data[0].id;
         var userID = Cookies.get("UserID");
-        Cookies.set("favoritedishid", _data[0].id);
+        Cookies.set(_data[0].id, _data[0].id);
 
         if (userID) {
             $("#favoriteButton button").remove();
@@ -116,7 +116,7 @@ var Random = function() {
 
     function removeFromFavorites() {
         _db.ref("/Users/" + _currentUser + "/" + _data[0].id).remove();
-        Cookies.remove("favoritedishid");
+        Cookies.remove(_data[0].id);
         $("#favoriteButton button").remove();
         $("#favoriteButton").append(`
             <button class="btn btn-danger" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i>Add to Favorites</button>

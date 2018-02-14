@@ -78,7 +78,7 @@ var Results = function () {
     }
 
     function showDishInstructions() {
-        var favoriteDishId = Cookies.get("favoritedishid");
+        var favoriteDishId = Cookies.get(_dishData.id);
         if (favoriteDishId == _dishData.id) {
             $("#selectionDisplay").html(`
                     <div>                        
@@ -131,7 +131,7 @@ var Results = function () {
         var favoriteDishId = _dishData.id;
         var userID = Cookies.get("UserID");
 
-        Cookies.set("favoritedishid", _dishData.id);
+        Cookies.set(_dishData.id, _dishData.id);
 
         if (userID) {
             $("#favoriteButton button").remove();
@@ -154,7 +154,7 @@ var Results = function () {
 
     function removeFromFavorites() {
         _db.ref("/Users/" + _currentUser + "/" + _dishData.id).remove();
-        Cookies.remove("favoritedishid");
+        Cookies.remove(_dishData.id);
         $("#favoriteButton button").remove();
         $("#favoriteButton").append(`
             <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>

@@ -24,7 +24,8 @@ var Common = function() {
                 provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
                 requireDisplayName: true
             }
-        ]
+        ],
+        'credentialHelper': firebaseui.auth.CredentialHelper.NONE
     };
     // Initialize the FirebaseUI Widget using Firebase.
     var ui = new firebaseui.auth.AuthUI(firebase.auth());

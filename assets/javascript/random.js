@@ -1,6 +1,7 @@
 var Random = function() {
     var _data;
     var _db;
+    var _currentUser = Cookies.get("UserID");
 
     function init() {
         _db = Common.getDatabase();
@@ -34,12 +35,28 @@ var Random = function() {
     }
 
     function renderList() {
+        var favoriteDishId = Cookies.get("favoritedishid");
+
         $("#randomResult").html(`
+            <h1 div id= "randomDescription">Be Inspired With a Random Recipe Below to Put Your Cooking Skills to The Test</h1>
+            <hr>
+        `);
+        if (favoriteDishId == _data[0].id) {
+            $("#randomResult").append(`
+            <div id="favoriteButton">
+                <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i>Favorite</button>
+            </div> 
+            `);
+        } else {
+            $("#randomResult").append(`
+                <div id="favoriteButton">
+                    <button class="btn btn-danger" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+                </div> 
+            `);
+        }
+        $("#randomResult").append(`
             <div>
-            
-                <h1 div id= "randomDescription">Be Inspired With a Random Recipe Below to Put Your Cooking Skills to The Test</h1>
-                <hr>
-                <h2><button class="btn btn-primary" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i></button>  ${_data[0].title}</h2>
+                <h2>${_data[0].title}</h2>
                 <h3>Ingredients</h3>  
                 <div id="extendedIngredients"></div>
                 <h3>Instructions</h3>  
@@ -69,20 +86,26 @@ var Random = function() {
                 <img src="${_data[0].image}">
             </div>
         `);
+
         $("#favDishButton").on("click", addToFavorites);
+        $("#unfavDishButton").on("click", removeFromFavorites);
     }
 
     function addToFavorites() {
         var favoriteDishId = _data[0].id;
         var userID = Cookies.get("UserID");
+        Cookies.set("favoritedishid", _data[0].id);
+
         if (userID) {
-            console.log(userID);
+            $("#favoriteButton button").remove();
+            $("#favoriteButton").append(`
+                <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i>Favorite</button>
+            `);
             _db.ref("/Users/" + userID).child(favoriteDishId).set({
                 "dishid": _data[0].id,
                 "dishname": _data[0].title
-                // "dishingredients": _data[0].extendedIngredients
-                // "dishinstructions": _data[0].analyzedInstructions
             });
+            $("#unfavDishButton").on("click", removeFromFavorites);
         } else {
             Cookies.set("randomdishid", $(this).attr("data-dishid"));
             Cookies.set("randomdishtitle", $(this).attr("data-dishtitle"));
@@ -91,8 +114,18 @@ var Random = function() {
         }
     }
 
+    function removeFromFavorites() {
+        _db.ref("/Users/" + _currentUser + "/" + _data[0].id).remove();
+        Cookies.remove("favoritedishid");
+        $("#favoriteButton button").remove();
+        $("#favoriteButton").append(`
+            <button class="btn btn-danger" id="favDishButton" data-dishid="${_data[0].id}" data-dishtitle="${_data[0].title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+        `);
+        $("#favDishButton").on("click", addToFavorites);
+    }
+
     return {
-        init: init,
+        init: init
     };
 }();
 

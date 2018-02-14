@@ -1,8 +1,8 @@
 var Favorites = function() {
     var _db = Common.getDatabase();
     var _currentUser = Cookies.get("UserID");
-    var dishIdArray = [];
-    var dishNameArray = [];
+    var _dishIdArray = [];
+    var _dishNameArray = [];
     var _dishData;
     function init() {
         initEventHandlers();
@@ -11,20 +11,20 @@ var Favorites = function() {
         _db.ref("/Users/" + _currentUser).once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
                // console.log(childSnapshot.val());
-               dishIdArray.push(childSnapshot.val().dishid)
-               dishNameArray.push(childSnapshot.val().dishname)
+               _dishIdArray.push(childSnapshot.val().dishid)
+               _dishNameArray.push(childSnapshot.val().dishname)
                 showFavoriteDishes();
             });
         });
     }
 
     function showFavoriteDishes() {
-        if (dishIdArray.length > 0) {
+        if (_dishIdArray.length > 0) {
             $("#favorites-results").html("");
-            for (var i = 0; i < dishIdArray.length; i++) {
-                console.log(dishNameArray);
+            for (var i = 0; i < _dishIdArray.length; i++) {
+                console.log(_dishNameArray);
                 $("#favorites-results").append(`
-                    <h5 class="btn dishLinks btn btn-default" data-dishID="${dishIdArray[i]}">${dishNameArray[i]}</h5><br> 
+                    <h5 class="btn dishLinks btn btn-default" data-dishID="${_dishIdArray[i]}">${_dishNameArray[i]}</h5><br> 
                 `);
             }
             $(".dishLinks").on("click", function () {

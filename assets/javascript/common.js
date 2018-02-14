@@ -31,8 +31,6 @@ var Common = function() {
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig);
 
-    var _data;
-
     function init() {
         initEventHandlers();
         myUserLogin();
@@ -70,15 +68,11 @@ var Common = function() {
                         });
                     }
                 });
-
-                // $("#loginButton").text("Log Out");
-
-
-                // var url = Cookies.get("redirectUrl");
-                // if (url) {
-                //     Cookies.remove("redirectUrl");
-                //     window.location = url;
-                // }
+                var url = Cookies.get("redirectUrl");
+                if (url) {
+                    Cookies.remove("redirectUrl");
+                    window.location = url;
+                }
                 var newFbDishName = Cookies.get("randomdishtitle");
                 var newFbDishId = Cookies.get("randomdishid");
                 var currentUserId = Cookies.get("UserID");

@@ -1,20 +1,20 @@
 function initMap() {
     $(function () {
         // var test;
-        var startPoint = "";                // Starting point location
-        var endPoint = "";                  // Ending point location
-        var modeOfTravel = "";              // Mode of travel for G-maps
-        var map;                            // Global variable for map
-        var autoLocate = false;             // Default setting for 'your address' value
-        var pos;                            // Global var for autoLocate coordinates
-        var lat;                            // latitude variable
-        var lng;                            // longitudew variable
-        var yourAddress;                    // Holds the human address
-        var infoWindow = new google.maps.InfoWindow;
-        var cuisine = 1;
-        var restaurants;
-        var markers = [];
-        var directionsDisplay;
+        var _startPoint = "";                // Starting point location
+        var _endPoint = "";                  // Ending point location
+        var _modeOfTravel = "";              // Mode of travel for G-maps
+        var _map;                            // Global variable for map
+        var _autoLocate = false;             // Default setting for 'your address' value
+        var _pos;                            // Global var for autoLocate coordinates
+        var _lat;                            // latitude variable
+        var _lng;                            // longitudew variable
+        var _yourAddress;                    // Holds the human address
+        var _infoWindow = new google.maps.InfoWindow;
+        var _cuisine = 1;
+        var _restaurants;
+        var _markers = [];
+        var _directionsDisplay;
 
         initEventHandlers();
 
@@ -22,83 +22,69 @@ function initMap() {
             $("#goOut-btn").on('click', requestIpLocation);
 
             $("#submit").on('click', function () {    // Click to search for directions to the restaurant
-                if (autoLocate && $(".phldr").val() === "") {
-                    startPoint = pos;
-                    $(".phldr").attr("placeholder", yourAddress);
-                    infoWindow.setContent(yourAddress);
+                if (_autoLocate && $(".phldr").val() === "") {
+                    _startPoint = _pos;
+                    $(".phldr").attr("placeholder", _yourAddress);
+                    _infoWindow.setContent(_yourAddress);
                 } else {
-                    startPoint = $("#start").val();
+                    _startPoint = $("#start").val();
                     $.ajax({
                         url   : "http://maps.google.com/maps/api/geocode/json",
-                        data: { address: startPoint },
+                        data: { address: _startPoint },
                         method: "GET"
                     }).done(function (res) {
-                        infoWindow.setPosition({
+                        _infoWindow.setPosition({
                             lat: res.results[0].geometry.location.lat,
                             lng: res.results[0].geometry.location.lng
                         });
-                        infoWindow.setContent("Starting Location");
-                        if (directionsDisplay != null) {
-                            directionsDisplay.setMap(null);
-                            directionsDisplay = null;
+                        _infoWindow.setContent("Starting Location");
+                        if (_directionsDisplay != null) {
+                            _directionsDisplay.setMap(null);
+                            _directionsDisplay = null;
                         }
                         configRoute();
                     });
                 }
-                // getRestaurantInfo(function(res, status) {
-                //     restaurants = res.restaurants;
-                //     console.log(restaurants);
-                //     endPoint = restaurants[0].restaurant.location.address;
-                //
-                //     // endPoint = $("#end").val();             // Center Map at these coordinates
-                //     modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
-                //     configRoute();
-                // });
             });
 
             $("#mode2").on("change", function() {
                 deleteMarkers();
-                cuisine = $(this).val();
+                _cuisine = $(this).val();
                 getRestaurantInfo(function (res, status) {
-                    restaurants = res.restaurants;
-                    endPoint = restaurants[0].restaurant.location.address;
+                    _restaurants = res.restaurants;
+                    _endPoint = _restaurants[0].restaurant.location.address;
                     displayMarkers();
                 });
             });
         }
-
-        // setTimeout(function() { $("#right-panel").hide() }, 3000);
-        // setTimeout(function() { $("#right-panel").show() }, 6000);
-        // setTimeout(function() { $("#right-panel").hide() }, 9000);
-        // setTimeout(function() { $("#right-panel").show() }, 12000);
 
         function requestIpLocation() {
             // Try HTML5 geolocation.
             console.log("navigator.geolocation", navigator.geolocation);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    lat = position.coords.latitude;
-                    lng = position.coords.longitude;
-                    pos = { lat: lat, lng: lng };
+                    _lat = position.coords.latitude;
+                    _lng = position.coords.longitude;
+                    _pos = { lat: _lat, lng: _lng };
 
                     getRestaurantInfo(function(res, status) {
-                        restaurants = res.restaurants;
-                        console.log(restaurants);
-                        endPoint = restaurants[0].restaurant.location.address;
+                        _restaurants = res.restaurants;
+                        console.log(_restaurants);
+                        _endPoint = _restaurants[0].restaurant.location.address;
 
                         $("#goOutToDinner").removeClass("hidden");
 
-                        map = new google.maps.Map(document.getElementById('map'), {
+                        _map = new google.maps.Map(document.getElementById('map'), {
                             zoom: position ? 11 : 3,
-                            center: position ? pos : {lat: 39.5, lng: -95.35},
+                            center: position ? _pos : {lat: 39.5, lng: -95.35},
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         });
 
                         //region Display Current Location
-                        autoLocate = true;
-                        infoWindow.setPosition(pos);
-                        infoWindow.setContent('Your Location');
-                        infoWindow.open(map);
+                        _autoLocate = true;
+                        _infoWindow.setPosition(_pos);
+                        _infoWindow.setContent('Your Location');
+                        _infoWindow.open(_map);
                         //endregion
 
                         //region Display Restaurants on map
@@ -106,19 +92,19 @@ function initMap() {
                         //endregion
                     });
 
-                    var queryURL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=true";
+                    var queryURL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + _lat + "," + _lng + "&sensor=true";
                     $.ajax({
                         url   : queryURL,
                         method: "GET"
                     }).done(function (response) {
-                        yourAddress = response.results[0].formatted_address;
+                        _yourAddress = response.results[0].formatted_address;
                     });
                 }, function () {
-                    handleLocationError(true, infoWindow, map.getCenter());
+                    handleLocationError(true, _infoWindow, _map.getCenter());
                 });
             } else {
                 // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
+                handleLocationError(false, _infoWindow, _map.getCenter());
             }
 
             function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -126,7 +112,7 @@ function initMap() {
                 infoWindow.setContent(browserHasGeolocation ?
                     'Error: The Geolocation service failed.' :
                     'Error: Your browser doesn\'t support geolocation.');
-                infoWindow.open(map);
+                infoWindow.open(_map);
             }
         }
 
@@ -144,9 +130,9 @@ function initMap() {
                 },
                 data   : {
                     count   : count,
-                    cuisines: cuisine,
-                    lat     : lat,
-                    lon     : lng
+                    cuisines: _cuisine,
+                    lat     : _lat,
+                    lon     : _lng
                 },
                 success: cb,
                 error  : function (error) {
@@ -161,48 +147,48 @@ function initMap() {
             var marker;
             var i;
 
-            for (i = 0; i < restaurants.length; i++) {
-                var location = restaurants[i].restaurant.location;
+            for (i = 0; i < _restaurants.length; i++) {
+                var location = _restaurants[i].restaurant.location;
 
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(location.latitude, location.longitude),
-                    map     : map
+                    map     : _map
                 });
-                markers.push(marker);
+                _markers.push(marker);
                 var bounds = new google.maps.LatLngBounds();
-                bounds.extend(infoWindow.getPosition());
-                for (var j = 0; j < markers.length; j++) {
-                    bounds.extend(markers[j].getPosition());
+                bounds.extend(_infoWindow.getPosition());
+                for (var j = 0; j < _markers.length; j++) {
+                    bounds.extend(_markers[j].getPosition());
                 }
 
-                map.fitBounds(bounds);
+                _map.fitBounds(bounds);
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow2.setContent(`<h3>${restaurants[i].restaurant.name}</h3>
-                                                <p class="restaurantDirections" data-latitude="${restaurants[i].restaurant.location.latitude}" data-longitude="${restaurants[i].restaurant.location.longitude}">Show directions for this location.</p>
+                        infowindow2.setContent(`<h3>${_restaurants[i].restaurant.name}</h3>
+                                                <p class="restaurantDirections" data-latitude="${_restaurants[i].restaurant.location.latitude}" data-longitude="${_restaurants[i].restaurant.location.longitude}">Show directions for this location.</p>
                                               `);
-                        infowindow2.open(map, marker);
+                        infowindow2.open(_map, marker);
                         $(".restaurantDirections").on("click", function() {
-                            if (directionsDisplay != null) {
-                                directionsDisplay.setMap(null);
-                                directionsDisplay = null;
+                            if (_directionsDisplay != null) {
+                                _directionsDisplay.setMap(null);
+                                _directionsDisplay = null;
                             }
                             $("#right-panel").html("");
-                            console.log(cuisine);
-                            if (autoLocate && $(".phldr").val() === "") {
-                                startPoint = pos;
-                                $(".phldr").attr("placeholder", yourAddress);
-                                infoWindow.setContent(yourAddress);
+                            console.log(_cuisine);
+                            if (_autoLocate && $(".phldr").val() === "") {
+                                _startPoint = _pos;
+                                $(".phldr").attr("placeholder", _yourAddress);
+                                _infoWindow.setContent(_yourAddress);
                             } else {
-                                startPoint = $("#start").val();
+                                _startPoint = $("#start").val();
                             }
                             getRestaurantInfo(function(res, status) {
-                                restaurants = res.restaurants;
-                                console.log(restaurants);
-                                endPoint = restaurants[i].restaurant.location.address;
+                                _restaurants = res.restaurants;
+                                console.log(_restaurants);
+                                _endPoint = _restaurants[i].restaurant.location.address;
 
-                                // endPoint = $("#end").val();             // Center Map at these coordinates
-                                modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
+                                // _endPoint = $("#end").val();             // Center Map at these coordinates
+                                _modeOfTravel = $("#mode").val();        // Setting travel mode to dropdown
                                 configRoute();
                             });
                         });
@@ -212,33 +198,33 @@ function initMap() {
         }
 
         function deleteMarkers() {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
+            for (var i = 0; i < _markers.length; i++) {
+                _markers[i].setMap(null);
             }
-            markers = [];
+            _markers = [];
         }
 
         function configRoute() {
             var directionsService = new google.maps.DirectionsService;
-             directionsDisplay = new google.maps.DirectionsRenderer({
+             _directionsDisplay = new google.maps.DirectionsRenderer({
                 draggable: true,
-                map      : map,
+                map      : _map,
                 panel    : document.getElementById('right-panel')
             });
 
-            directionsDisplay.addListener('directions_changed', function () {
-                computeTotalDistance(directionsDisplay.getDirections());
+            _directionsDisplay.addListener('directions_changed', function () {
+                computeTotalDistance(_directionsDisplay.getDirections());
             });
 
             var config = {
-                origin     : startPoint,
-                destination: endPoint,
+                origin     : _startPoint,
+                destination: _endPoint,
                 //   waypoints: [{location: 'Adelaide, SA'}, {location: 'Broken Hill, NSW'}],
-                travelMode : modeOfTravel,
+                travelMode : _modeOfTravel,
                 avoidTolls : true
             };
 
-            displayRoute(config, directionsService, directionsDisplay);
+            displayRoute(config, directionsService, _directionsDisplay);
         }
 
         function displayRoute(config, service, display) {
@@ -261,15 +247,5 @@ function initMap() {
             total = total * 0.621371 / 1000; // convert from x to y
             $('#total').text(total.toFixed(2) + ' mi');
         }
-
-        // setTimeout(function () { dineOut() },500);
-        // $("#view33_display_name").on("blur", function () {
-        //   test = $(this).val(function (i, val) {
-        //     return val.toUpperCase();
-        //     console.log(test);
-        //   });
-        // });
-
-        // $("#map-results").hide();
     });
 }

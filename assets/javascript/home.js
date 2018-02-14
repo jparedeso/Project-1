@@ -1,5 +1,4 @@
 var Home = function() {
-    var _data;
 
     function init() {
         initEventHandlers();
@@ -15,28 +14,6 @@ var Home = function() {
             });
         })
     }
-    // function getRandomDishData() {
-    //     var randomDishesURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random";
-    //     var numberOfDishes = 6;
-    //     $.ajax({
-    //         url: randomDishesURL,
-    //         method: "GET",
-    //         headers: {
-    //             "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
-    //         },
-    //         data: {
-    //             number: numberOfDishes
-    //         },
-    //         success: function(res, status) {
-    //             _data = res.recipes;
-    //             showRandomDish();
-    //         },
-    //         error: function(error) {
-    //             console.error(error);
-    //         }
-    //     });
-    //
-    // }
 
     function showRandomDish() {
         var data = [
@@ -344,7 +321,7 @@ var Home = function() {
             var dishNameUrl = dishName.replace(/ /g, "%20");
             var newDishNameUrl = dishNameUrl.replace("&", "");
             var dishIdUrl = $(this).attr("data-dishid");
-            var newURL = "https://jparedeso.github.io/Project-1/P1-SearchResultsPage.html?searchResult=" + newDishNameUrl + "&dishid=" + dishIdUrl;
+            var newURL = "P1-SearchResultsPage.html" + "?searchResult=" + newDishNameUrl + "&dishid=" + dishIdUrl;
             window.location = newURL;
         });
         setTimeout(function() {

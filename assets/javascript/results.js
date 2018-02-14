@@ -119,7 +119,7 @@ var Results = function() {
                 // "dishinstructions": _dishData.analyzedInstructions
             });
         } else {
-            // Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
+            Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
             Cookies.set("randomdishid", $(this).attr("data-dishid"));
             Cookies.set("randomdishtitle", $(this).attr("data-dishtitle"));
             $("#myModal").modal("toggle");

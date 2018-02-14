@@ -69,10 +69,7 @@ var Common = function() {
                     }
                 });
                 var url = Cookies.get("redirectUrl");
-                if (url) {
-                    Cookies.remove("redirectUrl");
-                    window.location = url;
-                }
+
                 var newFbDishName = Cookies.get("randomdishtitle");
                 var newFbDishId = Cookies.get("randomdishid");
                 var currentUserId = Cookies.get("UserID");
@@ -80,55 +77,24 @@ var Common = function() {
                     _database.ref("/Users/" + currentUserId).child(newFbDishId).set({
                         "dishid": newFbDishId,
                         "dishname": newFbDishName
-                        // "dishingredients": _data[0].extendedIngredients
-                        // "dishinstructions": _data[0].analyzedInstructions
                     });
                     Cookies.remove("randomdishtitle");
                     Cookies.remove("randomdishid");
-                    window.location = "P1-FavoritesPage.html";
-                }
-                // var displayName = user.displayName;
-                // var email = user.email;
-                // var emailVerified = user.emailVerified;
-                // var photoURL = user.photoURL;
-                // var uid = user.uid;
-                // var phoneNumber = user.phoneNumber;
-                // var providerData = user.providerData;
-                // user.getIdToken().then(function (accessToken) {
-                //     document.getElementById('sign-in-status').textContent = 'Signed in';
-                //     document.getElementById('sign-in').textContent = 'Sign out';
-                //     document.getElementById('account-details').textContent = JSON.stringify({
-                //         displayName  : displayName,
-                //         email        : email,
-                //         emailVerified: emailVerified,
-                //         phoneNumber  : phoneNumber,
-                //         photoURL     : photoURL,
-                //         uid          : uid,
-                //         accessToken  : accessToken,
-                //         providerData : providerData
-                //     }, null, '  ');
-                // });
 
+                    if (url) {
+                        Cookies.remove("redirectUrl");
+                        window.location = url;
+                    } else {
+                        window.location = "P1-FavoritesPage.html";
+                    }
+
+                }
 
                 $("#loginButton").click(function () {
-                    // $("#loginButton").text("Log In")
-                    //                  .attr({
-                    //                      "data-toggle": "modal",
-                    //                      "data-target": "#myModal"
-                    //                 });
-                    // $("<button type='button' class='btn primary' data-toggle='modal' data-target='#myModal' id='loginButton'>Log In</button>").insertBefore(".navbar-form.navbar-right");
                     firebase.auth().signOut();
                     Cookies.remove("UserID");
                     window.location = "index.html";
                 });
-                // } else {
-            //     // User is signed out.
-            //     document.getElementById('sign-in-status').textContent = 'Signed out';
-            //     document.getElementById('sign-in').textContent = 'Sign in';
-            //     document.getElementById('account-details').textContent = 'null';
-            //     $("#sign-in").click(function () {
-            //         window.location = "index.html";
-            //     });
             } else {
                 $("<button type='button' class='btn primary' data-toggle='modal' data-target='#myModal' id='loginButton'>Log In</button>").insertBefore(".navbar-form.navbar-right");
             }

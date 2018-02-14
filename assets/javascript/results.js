@@ -79,7 +79,10 @@ var Results = function() {
     function showDishInstructions() {
         $("#selectionDisplay").html(`
                     <div>                        
-                        <h2><button class="btn btn-primary" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i></button>  ${_dishData.title}</h2>
+                        <div id="favoriteButton">
+                            <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+                        </div>
+                        <h2>${_dishData.title}</h2>
                         <img src="${_dishData.image}">
                         <h3>Ingredients</h3>  
                         <div id="extendedIngredients"></div>
@@ -110,13 +113,18 @@ var Results = function() {
     function addToFavorites() {
         var favoriteDishId = _dishData.id;
         var userID = Cookies.get("UserID");
+
+        Cookies.set("favoritedishid", _dishData.id);
+
         if (userID) {
-            console.log(userID);
+            $("#favoriteButton button").remove();
+            $("#favoriteButton").append(`
+                <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
+            `);
+            $("#unfavDishButton").on("click", removeFromFavorites);
             _db.ref("/Users/" + userID).child(favoriteDishId).set({
                 "dishid": _dishData.id,
                 "dishname": _dishData.title
-                // "dishingredients": _dishData.extendedIngredients
-                // "dishinstructions": _dishData.analyzedInstructions
             });
         } else {
             Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));

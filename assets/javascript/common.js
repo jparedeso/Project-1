@@ -51,25 +51,14 @@ var Common = function() {
     function myUserLogin() {
 
         firebase.auth().onAuthStateChanged(function(user) {
+            // User is signed in.
             if (user) {
                 Cookies.set("UserID", user.uid);
                 // $("#loginButton").text("Log Out")
                 //                 .removeAttr("data-toggle", "data-target");
                 $("<button type='button' class='btn primary' id='loginButton'>Log Out</button>").insertBefore(".navbar-form.navbar-right");
-                // User is signed in.
-                _database.ref("/Users").once("value", function(snapshot) {
-                    var fbUsers = snapshot.val();
-                    var userKeys = fbUsers ? Object.keys(fbUsers) : null;
 
-                    if (!userKeys || userKeys.indexOf(user.uid) === -1) {
-                        _database.ref("/Users").child(user.uid).set({
-                            //This is where user's favorite dishes will go to be stored in db.
-                            // user: user.uid
-                        });
-                    }
-                });
                 var url = Cookies.get("redirectUrl");
-
                 var newFbDishName = Cookies.get("randomdishtitle");
                 var newFbDishId = Cookies.get("randomdishid");
                 var currentUserId = Cookies.get("UserID");
@@ -87,9 +76,7 @@ var Common = function() {
                     } else {
                         window.location = "P1-FavoritesPage.html";
                     }
-
                 }
-
                 $("#loginButton").click(function () {
                     firebase.auth().signOut();
                     Cookies.remove("UserID");

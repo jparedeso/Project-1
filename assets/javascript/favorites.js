@@ -4,13 +4,15 @@ var Favorites = function() {
     var _dishIdArray = [];
     var _dishNameArray = [];
     var _dishData;
+    var _cookieString;
+    var _currentUser = Cookies.get("UserID");
+
     function init() {
         initEventHandlers();
     }
     function initEventHandlers() {
         _db.ref("/Users/" + _currentUser).once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
-               // console.log(childSnapshot.val());
                _dishIdArray.push(childSnapshot.val().dishid)
                _dishNameArray.push(childSnapshot.val().dishname)
                 showFavoriteDishes();
@@ -22,9 +24,8 @@ var Favorites = function() {
         if (_dishIdArray.length > 0) {
             $("#favorites-results").html("");
             for (var i = 0; i < _dishIdArray.length; i++) {
-                console.log(_dishNameArray);
                 $("#favorites-results").append(`
-                    <h5 class="btn dishLinks btn btn-default" data-dishID="${_dishIdArray[i]}">${_dishNameArray[i]}</h5><br> 
+                    <h5 class="btn dishLinks btn btn-default" id="${_dishIdArray[i]}" data-dishID="${_dishIdArray[i]}">${_dishNameArray[i]}</h5><br> 
                 `);
             }
             $(".dishLinks").on("click", function () {
@@ -37,16 +38,32 @@ var Favorites = function() {
         }
     }
     function showDishInstructions() {
-        $("#selectionDisplay").html(`
-                    <div>                        
-                        <h2><button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}"><i class="fas fa-heart"></i></button>  ${_dishData.title}</h2>
+        var favoriteDishCookie = _dishData.id;
+        _cookieString = favoriteDishCookie.toString();
+        var favoriteDishId = Cookies.get(_cookieString);
+        if (favoriteDishId == _dishData.id) {
+            $("#selectionDisplay").html(`
+                        <div id="favoriteButton">
+                            <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
+                        </div>
+            `);
+        } else {
+            $("#selectionDisplay").html(`                   
+                        <div id="favoriteButton">
+                            <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+                        </div>
+            `);
+        }
+        $("#selectionDisplay").append(`
+                    <div>
+                        <h2>${_dishData.title}</h2>
                         <img src="${_dishData.image}">
                         <h3>Ingredients</h3>  
                         <div id="extendedIngredients"></div>
                         <h3>Instructions</h3>  
                         <div id="analyzedInstructions"></div>                      
-                    </div>
-                `);
+                   </div>
+        `);
         for (var i = 0; i < _dishData.extendedIngredients.length; i++) {
             $("#extendedIngredients").append(`
                         <p>${Number.isInteger(_dishData.extendedIngredients[i].amount) ? _dishData.extendedIngredients[i].amount : _dishData.extendedIngredients[i].amount.toFixed(2)} ${_dishData.extendedIngredients[i].unit} ${_dishData.extendedIngredients[i].name}</p>
@@ -64,12 +81,44 @@ var Favorites = function() {
                 <p>Try the following link: <a href="${_dishData.sourceUrl}" target="_blank">${_dishData.sourceUrl}</a></p>
             `)
         }
-        $("#favDishButton").on("click", removeFromFavorites);
+        $("#favDishButton").on("click", addToFavorites);
+        $("#unfavDishButton").on("click", removeFromFavorites);
+    }
+
+    function addToFavorites() {
+        var favoriteDishId = _dishData.id;
+        var userID = Cookies.get("UserID");
+
+        Cookies.set(_dishData.id, _dishData.id);
+
+        if (userID) {
+            $("#favoriteButton button").remove();
+            $("#favoriteButton").append(`
+                <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
+            `);
+            _db.ref("/Users/" + userID).child(favoriteDishId).set({
+                "dishid"  : _dishData.id,
+                "dishname": _dishData.title
+            });
+            $("#unfavDishButton").on("click", removeFromFavorites);
+        } else {
+            Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
+            Cookies.set("randomdishid", $(this).attr("data-dishid"));
+            Cookies.set("randomdishtitle", $(this).attr("data-dishtitle"));
+            $("#myModal").modal("toggle");
+            console.log("You are not logged in.");
+        }
     }
 
     function removeFromFavorites() {
         _db.ref("/Users/" + _currentUser + "/" + _dishData.id).remove();
-        location.reload();
+        Cookies.remove(_cookieString);
+        $("#favoriteButton button").remove();
+        $("#favoriteButton").append(`
+            <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+        `);
+        $("#favDishButton").on("click", addToFavorites);
+        $("#" + _dishData.id).remove();
     }
 
     return {

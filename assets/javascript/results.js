@@ -84,19 +84,15 @@ var Results = function () {
         var favoriteDishId = Cookies.get(_cookieString);
         if (favoriteDishId == _dishData.id) {
             $("#selectionDisplay").html(`
-                    <div>                        
                         <div id="favoriteButton">
                             <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
                         </div>
-                    </div>
             `);
         } else {
-            $("#selectionDisplay").html(`
-                    <div>                        
+            $("#selectionDisplay").html(`                   
                         <div id="favoriteButton">
                             <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
                         </div>
-                    </div>
             `);
         }
         $("#selectionDisplay").append(`

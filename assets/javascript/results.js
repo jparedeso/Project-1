@@ -3,6 +3,7 @@ var Results = function() {
     var _data;
     var _dishData;
     var _db;
+    var _currentUser = Cookies.get("UserID");
 
     function init() {
         _db = Common.getDatabase();
@@ -121,11 +122,11 @@ var Results = function() {
             $("#favoriteButton").append(`
                 <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
             `);
-            $("#unfavDishButton").on("click", removeFromFavorites);
             _db.ref("/Users/" + userID).child(favoriteDishId).set({
                 "dishid": _dishData.id,
                 "dishname": _dishData.title
             });
+            $("#unfavDishButton").on("click", removeFromFavorites);
         } else {
             Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
             Cookies.set("randomdishid", $(this).attr("data-dishid"));
@@ -133,6 +134,15 @@ var Results = function() {
             $("#myModal").modal("toggle");
             console.log("You are not logged in.");
         }
+    }
+
+    function removeFromFavorites() {
+        _db.ref("/Users/" + _currentUser + "/" + _dishData.id).remove();
+        $("#favoriteButton button").remove();
+        $("#favoriteButton").append(`
+            <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
+        `);
+        $("#favDishButton").on("click", addToFavorites);
     }
 
     //region Helpers

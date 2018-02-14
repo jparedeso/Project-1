@@ -4,6 +4,7 @@ var Results = function () {
     var _dishData;
     var _db;
     var _currentUser = Cookies.get("UserID");
+    var _cookieString;
 
     function init() {
         _db = Common.getDatabase();
@@ -78,7 +79,9 @@ var Results = function () {
     }
 
     function showDishInstructions() {
-        var favoriteDishId = Cookies.get(_dishData.id);
+        var favoriteDishCookie = _dishData.id;
+        _cookieString = favoriteDishCookie.toString();
+        var favoriteDishId = Cookies.get(_cookieString);
         if (favoriteDishId == _dishData.id) {
             $("#selectionDisplay").html(`
                     <div>                        
@@ -154,7 +157,7 @@ var Results = function () {
 
     function removeFromFavorites() {
         _db.ref("/Users/" + _currentUser + "/" + _dishData.id).remove();
-        Cookies.remove(_dishData.id);
+        Cookies.remove(_cookieString);
         $("#favoriteButton button").remove();
         $("#favoriteButton").append(`
             <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>

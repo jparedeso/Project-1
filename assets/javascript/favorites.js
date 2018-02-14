@@ -25,7 +25,9 @@ var Favorites = function() {
             $("#favorites-results").html("");
             for (var i = 0; i < _dishIdArray.length; i++) {
                 $("#favorites-results").append(`
-                    <h5 class="btn dishLinks btn btn-default" id="${_dishIdArray[i]}" data-dishID="${_dishIdArray[i]}">${_dishNameArray[i]}</h5><br> 
+                    <div id="${_dishIdArray[i]}">
+                        <h5 class="btn dishLinks btn btn-default" data-dishID="${_dishIdArray[i]}">${_dishNameArray[i]}</h5><br>
+                    </div>
                 `);
             }
             $(".dishLinks").on("click", function () {
@@ -91,23 +93,17 @@ var Favorites = function() {
 
         Cookies.set(_dishData.id, _dishData.id);
 
-        if (userID) {
-            $("#favoriteButton button").remove();
-            $("#favoriteButton").append(`
-                <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
-            `);
-            _db.ref("/Users/" + userID).child(favoriteDishId).set({
-                "dishid"  : _dishData.id,
-                "dishname": _dishData.title
-            });
-            $("#unfavDishButton").on("click", removeFromFavorites);
-        } else {
-            Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
-            Cookies.set("randomdishid", $(this).attr("data-dishid"));
-            Cookies.set("randomdishtitle", $(this).attr("data-dishtitle"));
-            $("#myModal").modal("toggle");
-            console.log("You are not logged in.");
-        }
+        $("#favoriteButton button").remove();
+        $("#favoriteButton").append(`
+            <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
+        `);
+        _db.ref("/Users/" + userID).child(favoriteDishId).set({
+            "dishid"  : _dishData.id,
+            "dishname": _dishData.title
+        });
+        $("#unfavDishButton").on("click", removeFromFavorites);
+        showFavoriteDishes();
+
     }
 
     function removeFromFavorites() {

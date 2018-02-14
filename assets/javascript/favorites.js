@@ -1,16 +1,17 @@
 var Favorites = function() {
     var _db = Common.getDatabase();
     var _currentUser = Cookies.get("UserID");
-    var _dishIdArray = [];
-    var _dishNameArray = [];
+    var _dishIdArray;
+    var _dishNameArray;
     var _dishData;
     var _cookieString;
-    var _currentUser = Cookies.get("UserID");
 
     function init() {
         initEventHandlers();
     }
     function initEventHandlers() {
+        _dishIdArray = [];
+        _dishNameArray = [];
         _db.ref("/Users/" + _currentUser).once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
                _dishIdArray.push(childSnapshot.val().dishid)
@@ -102,7 +103,7 @@ var Favorites = function() {
             "dishname": _dishData.title
         });
         $("#unfavDishButton").on("click", removeFromFavorites);
-        showFavoriteDishes();
+        initEventHandlers();
 
     }
 
@@ -114,6 +115,7 @@ var Favorites = function() {
             <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
         `);
         $("#favDishButton").on("click", addToFavorites);
+        // initEventHandlers();
         $("#" + _dishData.id).remove();
     }
 

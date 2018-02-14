@@ -57,14 +57,16 @@ var Favorites = function() {
                         </div>
             `);
         }
-        $("#selectionDisplay").append(`
+        $("#selectionDisplay").append(`                    
                     <div>
-                        <h2>${_dishData.title}</h2>
-                        <img src="${_dishData.image}">
-                        <h3>Ingredients</h3>  
-                        <div id="extendedIngredients"></div>
-                        <h3>Instructions</h3>  
-                        <div id="analyzedInstructions"></div>                      
+                    <!--TODO: do all margins at once using .child()
+                    -->
+                        <h2 style="margin-top: 15px;">${_dishData.title}</h2>
+                        <img style="margin-top: 15px;" src="${_dishData.image}">
+                        <h3 style="margin-top: 15px;">Ingredients</h3>  
+                        <div style="margin-top: 15px;" id="extendedIngredients"></div>
+                        <h3 style="margin-top: 15px;">Instructions</h3>  
+                        <div style="margin-top: 15px;" id="analyzedInstructions"></div>                      
                    </div>
         `);
         for (var i = 0; i < _dishData.extendedIngredients.length; i++) {

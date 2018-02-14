@@ -51,7 +51,7 @@ var Results = function () {
     function renderList() {
         if (_data.length > 0) {
             $("#dishDisplay").html(`
-                <h3>These are your Results. Click on any of them for Recipes:<h3>
+                <h3  style="margin-bottom: 15px;" >These are your Results. Click on any of them for Recipes:<h3>
             `);
             for (var i = 0; i < _data.length; i++) {
                 $("#dishDisplay").append(`
@@ -97,12 +97,12 @@ var Results = function () {
         }
         $("#selectionDisplay").append(`
                     <div>
-                        <h2>${_dishData.title}</h2>
-                        <img src="${_dishData.image}">
-                        <h3>Ingredients</h3>  
-                        <div id="extendedIngredients"></div>
-                        <h3>Instructions</h3>  
-                        <div id="analyzedInstructions"></div>                      
+                        <h2 style="margin-top: 15px;">${_dishData.title}</h2>
+                        <img style="margin-top: 15px;" src="${_dishData.image}">
+                        <h3 style="margin-top: 15px;">Ingredients</h3>  
+                        <div style="margin-top: 15px;" id="extendedIngredients"></div>
+                        <h3 style="margin-top: 15px;">Instructions</h3>  
+                        <div style="margin-top: 15px;" id="analyzedInstructions"></div>                      
                    </div>
         `);
         for (var i = 0; i < _dishData.extendedIngredients.length; i++) {

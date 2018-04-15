@@ -1,61 +1,34 @@
-var Results = function () {
-    var _searchResult;
-    var _data;
-    var _dishData;
-    var _db;
+var Favorites = function() {
+    var _db = Common.getDatabase();
     var _currentUser = Cookies.get("UserID");
+    var _dishIdArray;
+    var _dishNameArray;
+    var _dishData;
     var _cookieString;
 
     function init() {
-        _db = Common.getDatabase();
         initEventHandlers();
-        _searchResult = getParameterByName("searchResult");
-        getFoodData(_searchResult);
     }
-
     function initEventHandlers() {
-        $("#searchButton").on("click", function (event) {
-            event.preventDefault();
-            var searchResult = $("#mySearch").val().trim();
-            getFoodData(searchResult);
+        _dishIdArray = [];
+        _dishNameArray = [];
+        _db.ref("/Users/" + _currentUser).once("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+               _dishIdArray.push(childSnapshot.val().dishid)
+               _dishNameArray.push(childSnapshot.val().dishname)
+                showFavoriteDishes();
+            });
         });
     }
 
-    //region API
-    function getFoodData(dish) {
-        var dishNameSearchURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/autocomplete";
-        var numberOfDishes = 10;
-        $.ajax({
-            url    : dishNameSearchURL,
-            method : "GET",
-            headers: {
-                "X-Mashape-Key": "oD0quCJPwGmsh9p2ugkl92457MaKp1SDTMujsn6p1JeIntcBRt"
-            },
-            data   : {
-                number: numberOfDishes,
-                query : dish
-            },
-            success: function (res, status) {
-                // todo: show search parameters.
-                _data = res;
-                renderList();
-            },
-            error  : function (error) {
-                console.error(error);
-            }
-        });
-    }
-
-    //endregion
-
-    function renderList() {
-        if (_data.length > 0) {
-            $("#dishDisplay").html(`
-                <h3  style="margin-bottom: 15px;" >These are your Results. Click on any of them for Recipes:<h3>
-            `);
-            for (var i = 0; i < _data.length; i++) {
-                $("#dishDisplay").append(`
-                    <h5 class="btn dishLinks btn btn-default" data-dishID="${_data[i].id}">${_data[i].title}</h5><br> 
+    function showFavoriteDishes() {
+        if (_dishIdArray.length > 0) {
+            $("#favorites-results").html("");
+            for (var i = 0; i < _dishIdArray.length; i++) {
+                $("#favorites-results").append(`
+                    <div id="${_dishIdArray[i]}">
+                        <h5 class="btn dishLinks btn btn-default" data-dishID="${_dishIdArray[i]}">${_dishNameArray[i]}</h5><br>
+                    </div>
                 `);
             }
             $(".dishLinks").on("click", function () {
@@ -65,19 +38,8 @@ var Results = function () {
                     showDishInstructions();
                 });
             });
-            //storing cookie value in a variable that I can use to return to where the user left off after logging in.
-            var selected = getParameterByName("dishid");
-
-            if (selected) {
-                $(`[data-dishid=${selected}]`).click();
-            }
-        } else {
-            $("#dishDisplay").append(`
-                <h3>There are no Results.</h3>
-            `);
         }
     }
-
     function showDishInstructions() {
         var favoriteDishCookie = _dishData.id;
         _cookieString = favoriteDishCookie.toString();
@@ -95,8 +57,10 @@ var Results = function () {
                         </div>
             `);
         }
-        $("#selectionDisplay").append(`
+        $("#selectionDisplay").append(`                    
                     <div>
+                    <!--TODO: do all margins at once using .child()
+                    -->
                         <h2 style="margin-top: 15px;">${_dishData.title}</h2>
                         <img style="margin-top: 15px;" src="${_dishData.image}">
                         <h3 style="margin-top: 15px;">Ingredients</h3>  
@@ -120,7 +84,7 @@ var Results = function () {
             $("#analyzedInstructions").append(`
                 <p>Sorry, we couldn't find any instructions.</p>
                 <p>Try the following link: <a href="${_dishData.sourceUrl}" target="_blank">${_dishData.sourceUrl}</a></p>
-            `);
+            `)
         }
         $("#favDishButton").on("click", addToFavorites);
         $("#unfavDishButton").on("click", removeFromFavorites);
@@ -132,23 +96,17 @@ var Results = function () {
 
         Cookies.set(_dishData.id, _dishData.id);
 
-        if (userID) {
-            $("#favoriteButton button").remove();
-            $("#favoriteButton").append(`
-                <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
-            `);
-            _db.ref("/Users/" + userID).child(favoriteDishId).set({
-                "dishid"  : _dishData.id,
-                "dishname": _dishData.title
-            });
-            $("#unfavDishButton").on("click", removeFromFavorites);
-        } else {
-            Cookies.set("redirectUrl", window.location.href + "&dishid=" + $(this).attr("data-dishid"));
-            Cookies.set("randomdishid", $(this).attr("data-dishid"));
-            Cookies.set("randomdishtitle", $(this).attr("data-dishtitle"));
-            $("#myModal").modal("toggle");
-            console.log("You are not logged in.");
-        }
+        $("#favoriteButton button").remove();
+        $("#favoriteButton").append(`
+            <button class="btn btn-danger" id="unfavDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Favorite</button>
+        `);
+        _db.ref("/Users/" + userID).child(favoriteDishId).set({
+            "dishid"  : _dishData.id,
+            "dishname": _dishData.title
+        });
+        $("#unfavDishButton").on("click", removeFromFavorites);
+        initEventHandlers();
+
     }
 
     function removeFromFavorites() {
@@ -159,20 +117,9 @@ var Results = function () {
             <button class="btn btn-danger" id="favDishButton" data-dishid="${_dishData.id}" data-dishtitle="${_dishData.title}"><i class="fas fa-heart"></i>Add to Favorites</button>
         `);
         $("#favDishButton").on("click", addToFavorites);
+        // initEventHandlers();
+        $("#" + _dishData.id).remove();
     }
-
-    //region Helpers
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    //endregion
 
     return {
         init: init
@@ -180,5 +127,5 @@ var Results = function () {
 }();
 
 $(function () {
-    Results.init();
+    Favorites.init();
 });

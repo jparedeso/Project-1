@@ -2,64 +2,62 @@
 <html lang="en-us">
 
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial scale=1.0">
   <title>Results Page</title>
 
-  <!-- Latest compiled and minified Bootstrap CSS and JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified Bootstrap CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <!-- jQuery -->
-  <!-- Google Maps API scorce -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- API script source -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQgQJwE8at_lHwPtmbHL0dxNlfeoyiY3Q&callback=dineOut"></script>
-  <script type="text/javascript" src="assets/javascript/maps.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="assets/css/P1Style.css">
-  <!-- Maps.css stylesheet link -->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
   <link rel="stylesheet" type="text/css" href="assets/css/maps.css">
 
+  <!-- Latest compiled and minified Bootstrap Javascript-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
+
+  <!-- Google Maps API scorce -->
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQgQJwE8at_lHwPtmbHL0dxNlfeoyiY3Q&callback=initMap"></script>
+
   <!-- JavaScript -->
+  <<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-
-  <script type="text/javascript" src="assets/javascript/maps.js"></script>
-  <script type="text/javascript" src="assets/javascript/home.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+  <script type="text/javascript" src="assets/javascript/common.js"></script>
   <script type="text/javascript" src="assets/javascript/results.js"></script>
-
+  <script type="text/javascript" src="assets/javascript/maps.js"></script>
 </head>
 
 <body>
-  <!-- this page is generated from clicking the "go" button on home page.-->
   <header class="fixed-top">
     <div class="page-header">
-      <h1>Cook-or-Naught
-        <small>The App For Kitchen Adulting... Or Naught.</small>
+      <h1><img src="assets/images/logosmall.png" alt="Logo" div id="logo" width="50" height="50"> Here's what we found...
+        <small>Sounds tasty, right?</small>
       </h1>
       <nav class="navbar navbar-default navbar-fixed">
         <div class="container-fluid">
           <div class="navbar">
-            <a class="btn primary" href="P1-HomePage.html" role="button" aria-expanded="false">Home</a>
+            <a class="btn primary" href="index.html" role="button" aria-expanded="false">Home</a>
             <a class="btn primary" href="P1-FavoritesPage.html" role="button" aria-expanded="false">Favorites</a>
             <a class="btn primary" href="P1-RandomPage.html" role="button" aria-expanded="false">I'm Feeling Lucky
             </a>
             <a class="btn primary" href="P1-ReviewPage.html" role="button" aria-expanded="false">Reviews</a>
-            <!--this will privide a random recipe from API-->
 
             <form class="navbar-form navbar-right">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Recipe Search">
-                <button type="submit" class="btn btn-default">Go</button>
-                <!--this will open up a new page-->
+                <input type="text" class="form-control" placeholder="Recipe Search" id="mySearch">
+                <button type="submit" class="btn btn-default" id="searchButton">Go</button>
               </div>
             </form>
           </div>
@@ -71,89 +69,116 @@
   <div id="mainContainer" class="container">
     <div class="row">
       <div class="col-md-6">
-        <div id="result1">
+        <div id="dishDisplay">
           <!--<a class="btn primary" href="P1-FavoritesPage.html" role="button"-->
           <!--aria-expanded="false">Favorites</a>-->
         </div>
-        <br>
-        <div id="result2">
-          <!--<a class="btn primary" href="P1-FavoritesPage.html" role="button"-->
-          <!--aria-expanded="false">Favorites</a>-->
-        </div>
-        <br>
-        <div id="result3">
-          <!--<a class="btn primary" href="P1-FavoritesPage.html" role="button"-->
-          <!--aria-expanded="false">Favorites</a>-->
-        </div>
-        <br>
-        <div id="result4">
-          <!--<a class="btn primary" href="P1-FavoritesPage.html" role="button"-->
-          <!--aria-expanded="false">Favorites</a>-->
-        </div>
-        <br>
-        <div id="result5">
-          <!--<a class="btn primary" href="P1-FavoritesPage.html" role="button"-->
-          <!--aria-expanded="false">Favorites</a>-->
-        </div>
-        <br>
-        <div id="changedMind">Change your mind? Don't feel like adulting after all? Just want to say screw it and go out? We've got you covered.
-          Click 'Go Out' to find a restaurant and keep your kitchen clean!
-          <button id="goOut-btn" type="submit" class="btn btn-default">Go Out!</button>
+        <div id="changedMind">
+            <p>Change your mind? Don't feel like adulting after all? Just want to say screw it and go out? We've got you covered.
+                Click 'Go Out' to find a restaurant and keep your kitchen clean! <button id="goOut-btn" type="submit" class="btn btn-default">Go Out!</button></p>
         </div>
       </div>
-      <div id="selectionDisplay" class="col-md-6">The recipe the use picked from the lefthand column will appear here when they click on it.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis
-        sem at nibh elementum imperdiet.
-      </div>
+      <div id="selectionDisplay" class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="goOutToDinner" class="hidden">
+
+                <div class="container-map" id="map-dir">
+                    <a class="input-wrapper, top">
+                        <a id="floating-panel2" class="foodChoice">
+                            <b>I Want To Eat: </b>
+                            <select id="mode2">
+                                <option class="cuisine" id="cuisine0" value="1">American</option>
+                                <option class="cuisine" id="cuisine1" value="154">International</option>
+                                <option class="cuisine" id="cuisine2" value="162">Peruvian</option>
+                                <option class="cuisine" id="cuisine3" value="55">Italian</option>
+                                <option class="cuisine" id="cuisine4" value="73">Mexican</option>
+                                <option class="cuisine" id="cuisine5" value="148">Indian</option>
+                                <option class="cuisine" id="cuisine6" value="25">Chinese</option>
+                                <option class="cuisine" id="cuisine7" value="60">Japanese</option>
+                                <option class="cuisine" id="cuisine8" value="70">Mediterranean</option>
+                                <option class="cuisine" id="cuisine9" value="83">Seafood</option>
+                                <option class="cuisine" id="cuisine10" value="308">Vegetarian</option>
+                                <option class="cuisine" id="cuisine11" value="143">Healthy Food</option>
+                                <option class="cuisine" id="cuisine12" value="40">Fast Food</option>
+                                <option class="cuisine" id="cuisine13" value="100">Desserts</option>
+                            </select>
+                        </a>
+                        <input class="phldr" dir="auto" type="text" placeholder="Your address" name="direction-display" id="start" maxlength="30"
+                               class="input--text" aria-label="name">
+                    </a>
+                    <!--<a class="input-wrapper, top">-->
+                    <!--<input dir="auto" type="text" placeholder="Restaurant's address" name="Restaurant's address" id="end" maxlength="30" class="input&#45;&#45;text"-->
+                    <!--aria-label="name">-->
+                    <!--</a>-->
+                    <a id="floating-panel" class="transpChoice">
+                        <b>Mode of Travel: </b>
+                        <select id="mode">
+                            <option value="DRIVING">Driving</option>
+                            <option value="WALKING">Walking</option>
+                            <option value="BICYCLING">Bicycling</option>
+                            <option value="TRANSIT">Transit</option>
+                        </select>
+                    </a>
+                    <button id="submit" class="top">Update my location</button>
+                </div>
+
+                <div id="map-results">
+                    <div id="map"></div>
+                    <!-- Container for the map -->
+                    <div id="right-panel">
+                        <!-- Container for the directions -->
+                        <p>Total Distance:
+                            <span id="total"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
-
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <!--<div class="modal-header">-->
+            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+            <!--<h4 class="modal-title">Sign In</h4>-->
+            <!--</div>-->
+        <div class="modal-body">
+          <div id="firebaseui-auth-container"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>
+        </div>
+      </div>
+     </div>
+  </div>
+  <div class="modal fade" id="mapModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p id="getMap"></p>
+        </div>
+        <div class="modal-footer">
+          <button id="clear-form" type="button" class="btn btn-default" data-dismiss="modal" value="clear">Close</button>
+        </div>
+      </div>
+     </div>
+  </div>
   <!-- Map insertion html -->
-  <div id="goOutToDinner">
-    <div class="container-map" id="map-dir">
-      <a class="input-wrapper, top">
-        <input class="phldr" dir="auto" type="text" placeholder="Your address" name="direction-display" id="start" maxlength="30"
-          class="input--text" aria-label="name">
-      </a>
-      <a class="input-wrapper, top">
-        <input dir="auto" type="text" placeholder="Restaurant's address" name="Restaurant's address" id="end" maxlength="30" class="input--text"
-          aria-label="name">
-      </a>
-      <a id="floating-panel" class="top">
-        <b>Mode of Travel: </b>
-        <select id="mode">
-          <option value="DRIVING">Driving</option>
-          <option value="WALKING">Walking</option>
-          <option value="BICYCLING">Bicycling</option>
-          <option value="TRANSIT">Transit</option>
-        </select>
-      </a>
-      <button id="submit" class="top">Submit</button>
-    </div>
-
-    <div id="map-results">
-      <div id="map"></div>
-      <!-- Container for the map -->
-      <div id="right-panel">
-        <!-- Container for the directions -->
-        <p>Total Distance:
-          <span id="total"></span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-
-  <footer><br><br><br><br><br><br><br><br><br>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9">
-          <button id="back-btn" type="back/prev-page" class="btn btn-default">Back</button>
-        </div>
-        <div class="col-md-3">Madam Curie's Culinary Creations 2018</div>
-      </div>
-    </div>
-  </footer>
+  <!--<footer>-->
+      <!--<div class="container">-->
+          <!--<div class="row">-->
+              <!--<div class="col-md-9">-->
+              <!--</div>-->
+              <!--<div class="col-md-3">Madam Curie's Culinary Creations 2018</div>-->
+          <!--</div>-->
+      <!--</div>-->
+  <!--</footer>-->
 </body>
-
 </html>
